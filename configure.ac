@@ -1,6 +1,7 @@
 AC_INIT([snippets], [0.0.1])
 AC_CONFIG_SRCDIR([Makefile.am])
 AC_CONFIG_MACRO_DIR([m4])
+AC_CONFIG_HEADERS(config.h)
 
 AM_INIT_AUTOMAKE([dist-bzip2 -Wno-portability])
 AM_MAINTAINER_MODE
@@ -17,6 +18,7 @@ m4_ifdef([AM_SILENT_RULES],
 
 AC_PROG_CC
 AC_PROG_CPP
+AC_PROG_GREP
 AC_PROG_INSTALL
 AM_PROG_CC_C_O
 
@@ -26,8 +28,12 @@ AC_C_INLINE
 AC_ISC_POSIX
 AC_SYS_LARGEFILE
 
+AC_C_BIGENDIAN
+
 AC_CHECK_LIBM
 AC_SUBST(LIBM)
+
+AX_CREATE_STDINT_H([src/snippets-stdint.h])
 
 PKG_PROG_PKG_CONFIG
 
@@ -58,8 +64,30 @@ AM_CONDITIONAL(HAVE_GDB, test ! "x$GDB" = "xno")
 
 CFLAGS="$CFLAGS -Wall"
 
+AC_ARG_ENABLE([coverage],
+    AS_HELP_STRING([--enable-coverage],
+      [enable code coverage output (default=no)])],
+      [],
+      [enable_coverage=no])
+
+if test "x$enable_coverage" = "xyes"; then
+  AC_PATH_PROG(LCOV, lcov, no)
+  AC_PATH_PROG(GENHTML, genhtml, no)
+
+  if test "x$LCOV" != "xno" -a "x$GENHTML" != "xno"; then
+    CFLAGS="$CFLAGS -O0 -g -fprofile-arcs -ftest-coverage"
+    LDFLAGS="$LDFLAGS -fprofile-arcs"
+  else
+    AC_MSG_ERROR([lcov is required to build coverage information])
+  fi
+fi
+AM_CONDITIONAL(ENABLE_COVERAGE, test "x$enable_coverage" != "xno")
+
 AC_CONFIG_FILES([
   Makefile
+  src/Makefile
+  tests/Makefile
+  coverage/Makefile
 ])
 
 AC_OUTPUT
