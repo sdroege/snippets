@@ -1,0 +1,18 @@
+This library contains some algorithms and data structures that I've
+developed for my own usage, because no free alternative with the
+required features was available or had too many dependencies on
+third party libraries.
+
+Everything in this library is implemented in plain, portable C
+and has no external dependencies. It can be used in other software
+under the terms of the GNU Lesser General Public License version 3
+or any newer version.
+
+* Algorithms:
+  + Fowler–Noll–Vo hash function in 32, 64, 128, 256, 512 and
+    1024 bit variants.
+
+* Data structures:
+  + Skip list (TODO)
+  + Bloom filter (TODO)
+
