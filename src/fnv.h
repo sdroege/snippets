@@ -122,4 +122,24 @@ void fnv1_512 (const uint8_t *data, size_t len, uint8_t hash[64]);
  */
 void fnv1a_512 (const uint8_t *data, size_t len, uint8_t hash[64]);
 
+/** fnv1_1024:
+ *  @data: Data to be hashed
+ *  @len: Length of @data in bytes
+ *  @hash: Pointer to a 128 byte array for the calculated hash
+ *
+ *  Calculates the FNV1 1024 bit hash from @data and puts it
+ *  into @hash.
+ */
+void fnv1_1024 (const uint8_t *data, size_t len, uint8_t hash[128]);
+
+/** fnv1a_1024:
+ *  @data: Data to be hashed
+ *  @len: Length of @data in bytes
+ *  @hash: Pointer to a 128 byte array for the calculated hash
+ *
+ *  Calculates the FNV1A 1024 bit hash from @data and puts it
+ *  into @hash.
+ */
+void fnv1a_1024 (const uint8_t *data, size_t len, uint8_t hash[128]);
+
 #endif /* __FNV_H__ */
