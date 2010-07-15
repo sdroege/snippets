@@ -225,6 +225,154 @@ START_TEST (test_1a_256)
 
 END_TEST;
 
+START_TEST (test_1_512)
+{
+  const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  uint8_t hash[64];
+
+  fnv1_512 ((const uint8_t *) str, strlen (str), hash);
+  fail_unless (hash[0] == 0x31);
+  fail_unless (hash[1] == 0xd6);
+  fail_unless (hash[2] == 0x3b);
+  fail_unless (hash[3] == 0x43);
+  fail_unless (hash[4] == 0x3c);
+  fail_unless (hash[5] == 0x2e);
+  fail_unless (hash[6] == 0x8d);
+  fail_unless (hash[7] == 0xb9);
+  fail_unless (hash[8] == 0x43);
+  fail_unless (hash[9] == 0x7b);
+  fail_unless (hash[10] == 0xb7);
+  fail_unless (hash[11] == 0x96);
+  fail_unless (hash[12] == 0x95);
+  fail_unless (hash[13] == 0xd1);
+  fail_unless (hash[14] == 0x95);
+  fail_unless (hash[15] == 0xb0);
+  fail_unless (hash[16] == 0xc9);
+  fail_unless (hash[17] == 0x91);
+  fail_unless (hash[18] == 0x38);
+  fail_unless (hash[19] == 0xaf);
+  fail_unless (hash[20] == 0xe4);
+  fail_unless (hash[21] == 0x43);
+  fail_unless (hash[22] == 0xa1);
+  fail_unless (hash[23] == 0x8e);
+  fail_unless (hash[24] == 0xbc);
+  fail_unless (hash[25] == 0x7b);
+  fail_unless (hash[26] == 0xf3);
+  fail_unless (hash[27] == 0x79);
+  fail_unless (hash[28] == 0xee);
+  fail_unless (hash[29] == 0x8f);
+  fail_unless (hash[30] == 0xf4);
+  fail_unless (hash[31] == 0xe6);
+  fail_unless (hash[32] == 0xbb);
+  fail_unless (hash[33] == 0xe8);
+  fail_unless (hash[34] == 0xbf);
+  fail_unless (hash[35] == 0xcf);
+  fail_unless (hash[36] == 0xc9);
+  fail_unless (hash[37] == 0x25);
+  fail_unless (hash[38] == 0xfa);
+  fail_unless (hash[39] == 0xd7);
+  fail_unless (hash[40] == 0x5f);
+  fail_unless (hash[41] == 0x3d);
+  fail_unless (hash[42] == 0x2b);
+  fail_unless (hash[43] == 0xff);
+  fail_unless (hash[44] == 0x43);
+  fail_unless (hash[45] == 0x28);
+  fail_unless (hash[46] == 0xcb);
+  fail_unless (hash[47] == 0x72);
+  fail_unless (hash[48] == 0x97);
+  fail_unless (hash[49] == 0xba);
+  fail_unless (hash[50] == 0xdc);
+  fail_unless (hash[51] == 0x4f);
+  fail_unless (hash[52] == 0x3b);
+  fail_unless (hash[53] == 0x4a);
+  fail_unless (hash[54] == 0x60);
+  fail_unless (hash[55] == 0xe3);
+  fail_unless (hash[56] == 0x83);
+  fail_unless (hash[57] == 0xdb);
+  fail_unless (hash[58] == 0x49);
+  fail_unless (hash[59] == 0xfe);
+  fail_unless (hash[60] == 0xab);
+  fail_unless (hash[61] == 0xc5);
+  fail_unless (hash[62] == 0x6c);
+  fail_unless (hash[63] == 0x51);
+}
+
+END_TEST;
+
+START_TEST (test_1a_512)
+{
+  const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  uint8_t hash[64];
+
+  fnv1a_512 ((const uint8_t *) str, strlen (str), hash);
+  fail_unless (hash[0] == 0x13);
+  fail_unless (hash[1] == 0x92);
+  fail_unless (hash[2] == 0x20);
+  fail_unless (hash[3] == 0xfc);
+  fail_unless (hash[4] == 0x4c);
+  fail_unless (hash[5] == 0xd6);
+  fail_unless (hash[6] == 0x48);
+  fail_unless (hash[7] == 0x3d);
+  fail_unless (hash[8] == 0xd3);
+  fail_unless (hash[9] == 0x15);
+  fail_unless (hash[10] == 0x39);
+  fail_unless (hash[11] == 0x42);
+  fail_unless (hash[12] == 0xb7);
+  fail_unless (hash[13] == 0x1a);
+  fail_unless (hash[14] == 0x92);
+  fail_unless (hash[15] == 0x0d);
+  fail_unless (hash[16] == 0xb5);
+  fail_unless (hash[17] == 0x63);
+  fail_unless (hash[18] == 0xe3);
+  fail_unless (hash[19] == 0x0e);
+  fail_unless (hash[20] == 0xca);
+  fail_unless (hash[21] == 0x43);
+  fail_unless (hash[22] == 0xa1);
+  fail_unless (hash[23] == 0x8e);
+  fail_unless (hash[24] == 0xbc);
+  fail_unless (hash[25] == 0x56);
+  fail_unless (hash[26] == 0xc5);
+  fail_unless (hash[27] == 0x39);
+  fail_unless (hash[28] == 0x75);
+  fail_unless (hash[29] == 0x3c);
+  fail_unless (hash[30] == 0x7d);
+  fail_unless (hash[31] == 0x71);
+  fail_unless (hash[32] == 0x1d);
+  fail_unless (hash[33] == 0x74);
+  fail_unless (hash[34] == 0xd7);
+  fail_unless (hash[35] == 0x6e);
+  fail_unless (hash[36] == 0xd2);
+  fail_unless (hash[37] == 0x15);
+  fail_unless (hash[38] == 0x9c);
+  fail_unless (hash[39] == 0x76);
+  fail_unless (hash[40] == 0xd1);
+  fail_unless (hash[41] == 0x8f);
+  fail_unless (hash[42] == 0x91);
+  fail_unless (hash[43] == 0x30);
+  fail_unless (hash[44] == 0xf0);
+  fail_unless (hash[45] == 0xf3);
+  fail_unless (hash[46] == 0x76);
+  fail_unless (hash[47] == 0x18);
+  fail_unless (hash[48] == 0xf1);
+  fail_unless (hash[49] == 0x29);
+  fail_unless (hash[50] == 0xb6);
+  fail_unless (hash[51] == 0x94);
+  fail_unless (hash[52] == 0x5b);
+  fail_unless (hash[53] == 0x9f);
+  fail_unless (hash[54] == 0x82);
+  fail_unless (hash[55] == 0xef);
+  fail_unless (hash[56] == 0x26);
+  fail_unless (hash[57] == 0xba);
+  fail_unless (hash[58] == 0xcd);
+  fail_unless (hash[59] == 0xf6);
+  fail_unless (hash[60] == 0x66);
+  fail_unless (hash[61] == 0xaa);
+  fail_unless (hash[62] == 0xc2);
+  fail_unless (hash[63] == 0x1d);
+}
+
+END_TEST;
+
 static Suite *
 fnv_suite (void)
 {
@@ -240,6 +388,8 @@ fnv_suite (void)
   tcase_add_test (tc_general, test_1a_128);
   tcase_add_test (tc_general, test_1_256);
   tcase_add_test (tc_general, test_1a_256);
+  tcase_add_test (tc_general, test_1_512);
+  tcase_add_test (tc_general, test_1a_512);
   suite_add_tcase (s, tc_general);
 
   return s;

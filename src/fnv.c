@@ -274,14 +274,6 @@ fnv1a_128 (const uint8_t * data, size_t len, uint8_t hash[16])
  * 256 bit offset = 100029257958052580907070968620625704837092796014241193945225284501741471925557
  *                = 0xdd268dbcaac550362d98c384c4e576ccc8b1536847b6bbb31023b4c8caee0535
  */
-
-/*
- * 00000000
- * 00000000
- * 00000100
- * 00000000
- * 00000000000000000000000000000163
- */
 void
 fnv1_256 (const uint8_t * data, size_t len, uint8_t hash[32])
 {
@@ -478,4 +470,355 @@ fnv1a_256 (const uint8_t * data, size_t len, uint8_t hash[32])
   hash[29] = (tmp[7] >> 16) & 0xff;
   hash[30] = (tmp[7] >> 8) & 0xff;
   hash[31] = (tmp[7] >> 0) & 0xff;
+}
+
+/* 512 bit prime  = 3583591587484486736891907648909510844994632795575439255839
+ *                  9825615420669938882575126094039892345713852759
+ *                = 0x01000000000000000000000000000000000000000000000000000000
+ *                  00000000000000000000000000000157
+ * 512 bit offset = 9659303129496669498009435400716310466090418745672637896108
+ *                  3743294344626579945829321977164384498130518922065398057844
+ *                  95328239340083876191928701583869517785
+ *                = 0xb86db0b1171f4416dca1e50f309990acac87d059c900000000000000
+ *                  00000d21e948f68a34c192f62ea79bc942dbe7ce182036415f56e34bac
+ *                  982aac4afe9fd9
+ */
+void
+fnv1_512 (const uint8_t * data, size_t len, uint8_t hash[64])
+{
+  size_t i;
+  uint64_t tmp[16], tmp2[31];
+
+  /* 512 bit number, 32 bit per field, highest 32 bit first */
+  tmp[0] = 0xb86db0b1;
+  tmp[1] = 0x171f4416;
+  tmp[2] = 0xdca1e50f;
+  tmp[3] = 0x309990ac;
+  tmp[4] = 0xac87d059;
+  tmp[5] = 0xc9000000;
+  tmp[6] = 0x00000000;
+  tmp[7] = 0x00000d21;
+  tmp[8] = 0xe948f68a;
+  tmp[9] = 0x34c192f6;
+  tmp[10] = 0x2ea79bc9;
+  tmp[11] = 0x42dbe7ce;
+  tmp[12] = 0x18203641;
+  tmp[13] = 0x5f56e34b;
+  tmp[14] = 0xac982aac;
+  tmp[15] = 0x4afe9fd9;
+
+  for (i = 0; i < len; i++) {
+    /* Multiplication */
+
+    /* lowest 32 bits */
+
+    /* multiply and keep carries forward */
+    tmp2[30] = tmp[15] * 0x00000157;
+    tmp2[29] = tmp[14] * 0x00000157 + (tmp2[30] >> 32);
+    tmp2[28] = tmp[13] * 0x00000157 + (tmp2[29] >> 32);
+    tmp2[27] = tmp[12] * 0x00000157 + (tmp2[28] >> 32);
+    tmp2[26] = tmp[11] * 0x00000157 + (tmp2[27] >> 32);
+    tmp2[25] = tmp[10] * 0x00000157 + (tmp2[26] >> 32);
+    tmp2[24] = tmp[9] * 0x00000157 + (tmp2[25] >> 32);
+    tmp2[23] = tmp[8] * 0x00000157 + (tmp2[24] >> 32);
+    tmp2[22] = tmp[7] * 0x00000157 + (tmp2[23] >> 32);
+    tmp2[21] = tmp[6] * 0x00000157 + (tmp2[22] >> 32);
+    tmp2[20] = tmp[5] * 0x00000157 + (tmp2[21] >> 32);
+    tmp2[19] = tmp[4] * 0x00000157 + (tmp2[20] >> 32);
+    tmp2[18] = tmp[3] * 0x00000157 + (tmp2[19] >> 32);
+    tmp2[17] = tmp[2] * 0x00000157 + (tmp2[18] >> 32);
+    tmp2[16] = tmp[1] * 0x00000157 + (tmp2[17] >> 32);
+    tmp2[15] = tmp[0] * 0x00000157 + (tmp2[16] >> 32);
+    tmp2[14] = /* 0 + */ tmp2[15] >> 32;
+    /* drop carries */
+    tmp2[30] &= 0xffffffff;
+    tmp2[29] &= 0xffffffff;
+    tmp2[28] &= 0xffffffff;
+    tmp2[27] &= 0xffffffff;
+    tmp2[26] &= 0xffffffff;
+    tmp2[25] &= 0xffffffff;
+    tmp2[24] &= 0xffffffff;
+    tmp2[23] &= 0xffffffff;
+    tmp2[22] &= 0xffffffff;
+    tmp2[21] &= 0xffffffff;
+    tmp2[20] &= 0xffffffff;
+    tmp2[19] &= 0xffffffff;
+    tmp2[18] &= 0xffffffff;
+    tmp2[17] &= 0xffffffff;
+    tmp2[16] &= 0xffffffff;
+    tmp2[14] &= 0xffffffff;
+
+    /* highest 32 bits */
+
+    /* multiply and keep carries forward */
+    tmp2[20] += tmp[15] * 0x01000000;
+    tmp2[19] += tmp[14] * 0x01000000 + (tmp2[20] >> 32);
+    tmp2[18] += tmp[13] * 0x01000000 + (tmp2[19] >> 32);
+    tmp2[17] += tmp[12] * 0x01000000 + (tmp2[18] >> 32);
+    tmp2[16] += tmp[11] * 0x01000000 + (tmp2[17] >> 32);
+    tmp2[15] += tmp[10] * 0x01000000 + (tmp2[16] >> 32);
+
+    /* drop carries */
+    tmp2[20] &= 0xffffffff;
+    tmp2[19] &= 0xffffffff;
+    tmp2[18] &= 0xffffffff;
+    tmp2[17] &= 0xffffffff;
+    tmp2[16] &= 0xffffffff;
+    tmp2[15] &= 0xffffffff;
+
+    tmp[15] = tmp2[30] ^ *data;
+    tmp[14] = tmp2[29];
+    tmp[13] = tmp2[28];
+    tmp[12] = tmp2[27];
+    tmp[11] = tmp2[26];
+    tmp[10] = tmp2[25];
+    tmp[9] = tmp2[24];
+    tmp[8] = tmp2[23];
+    tmp[7] = tmp2[22];
+    tmp[6] = tmp2[21];
+    tmp[5] = tmp2[20];
+    tmp[4] = tmp2[19];
+    tmp[3] = tmp2[18];
+    tmp[2] = tmp2[17];
+    tmp[1] = tmp2[16];
+    tmp[0] = tmp2[15];
+
+    data++;
+  }
+
+  hash[0] = (tmp[0] >> 24) & 0xff;
+  hash[1] = (tmp[0] >> 16) & 0xff;
+  hash[2] = (tmp[0] >> 8) & 0xff;
+  hash[3] = (tmp[0] >> 0) & 0xff;
+  hash[4] = (tmp[1] >> 24) & 0xff;
+  hash[5] = (tmp[1] >> 16) & 0xff;
+  hash[6] = (tmp[1] >> 8) & 0xff;
+  hash[7] = (tmp[1] >> 0) & 0xff;
+  hash[8] = (tmp[2] >> 24) & 0xff;
+  hash[9] = (tmp[2] >> 16) & 0xff;
+  hash[10] = (tmp[2] >> 8) & 0xff;
+  hash[11] = (tmp[2] >> 0) & 0xff;
+  hash[12] = (tmp[3] >> 24) & 0xff;
+  hash[13] = (tmp[3] >> 16) & 0xff;
+  hash[14] = (tmp[3] >> 8) & 0xff;
+  hash[15] = (tmp[3] >> 0) & 0xff;
+  hash[16] = (tmp[4] >> 24) & 0xff;
+  hash[17] = (tmp[4] >> 16) & 0xff;
+  hash[18] = (tmp[4] >> 8) & 0xff;
+  hash[19] = (tmp[4] >> 0) & 0xff;
+  hash[20] = (tmp[5] >> 24) & 0xff;
+  hash[21] = (tmp[5] >> 16) & 0xff;
+  hash[22] = (tmp[5] >> 8) & 0xff;
+  hash[23] = (tmp[5] >> 0) & 0xff;
+  hash[24] = (tmp[6] >> 24) & 0xff;
+  hash[25] = (tmp[6] >> 16) & 0xff;
+  hash[26] = (tmp[6] >> 8) & 0xff;
+  hash[27] = (tmp[6] >> 0) & 0xff;
+  hash[28] = (tmp[7] >> 24) & 0xff;
+  hash[29] = (tmp[7] >> 16) & 0xff;
+  hash[30] = (tmp[7] >> 8) & 0xff;
+  hash[31] = (tmp[7] >> 0) & 0xff;
+
+  hash[32] = (tmp[8] >> 24) & 0xff;
+  hash[33] = (tmp[8] >> 16) & 0xff;
+  hash[34] = (tmp[8] >> 8) & 0xff;
+  hash[35] = (tmp[8] >> 0) & 0xff;
+  hash[36] = (tmp[9] >> 24) & 0xff;
+  hash[37] = (tmp[9] >> 16) & 0xff;
+  hash[38] = (tmp[9] >> 8) & 0xff;
+  hash[39] = (tmp[9] >> 0) & 0xff;
+  hash[40] = (tmp[10] >> 24) & 0xff;
+  hash[41] = (tmp[10] >> 16) & 0xff;
+  hash[42] = (tmp[10] >> 8) & 0xff;
+  hash[43] = (tmp[10] >> 0) & 0xff;
+  hash[44] = (tmp[11] >> 24) & 0xff;
+  hash[45] = (tmp[11] >> 16) & 0xff;
+  hash[46] = (tmp[11] >> 8) & 0xff;
+  hash[47] = (tmp[11] >> 0) & 0xff;
+  hash[48] = (tmp[12] >> 24) & 0xff;
+  hash[49] = (tmp[12] >> 16) & 0xff;
+  hash[50] = (tmp[12] >> 8) & 0xff;
+  hash[51] = (tmp[12] >> 0) & 0xff;
+  hash[52] = (tmp[13] >> 24) & 0xff;
+  hash[53] = (tmp[13] >> 16) & 0xff;
+  hash[54] = (tmp[13] >> 8) & 0xff;
+  hash[55] = (tmp[13] >> 0) & 0xff;
+  hash[56] = (tmp[14] >> 24) & 0xff;
+  hash[57] = (tmp[14] >> 16) & 0xff;
+  hash[58] = (tmp[14] >> 8) & 0xff;
+  hash[59] = (tmp[14] >> 0) & 0xff;
+  hash[60] = (tmp[15] >> 24) & 0xff;
+  hash[61] = (tmp[15] >> 16) & 0xff;
+  hash[62] = (tmp[15] >> 8) & 0xff;
+  hash[63] = (tmp[15] >> 0) & 0xff;
+}
+
+void
+fnv1a_512 (const uint8_t * data, size_t len, uint8_t hash[64])
+{
+  size_t i;
+  uint64_t tmp[16], tmp2[31];
+
+  /* 512 bit number, 32 bit per field, highest 32 bit first */
+  tmp[0] = 0xb86db0b1;
+  tmp[1] = 0x171f4416;
+  tmp[2] = 0xdca1e50f;
+  tmp[3] = 0x309990ac;
+  tmp[4] = 0xac87d059;
+  tmp[5] = 0xc9000000;
+  tmp[6] = 0x00000000;
+  tmp[7] = 0x00000d21;
+  tmp[8] = 0xe948f68a;
+  tmp[9] = 0x34c192f6;
+  tmp[10] = 0x2ea79bc9;
+  tmp[11] = 0x42dbe7ce;
+  tmp[12] = 0x18203641;
+  tmp[13] = 0x5f56e34b;
+  tmp[14] = 0xac982aac;
+  tmp[15] = 0x4afe9fd9;
+
+  for (i = 0; i < len; i++) {
+    /* Multiplication */
+
+    /* lowest 32 bits */
+
+    /* multiply and keep carries forward */
+    tmp2[30] = (*data ^ tmp[15]) * 0x00000157;
+    tmp2[29] = tmp[14] * 0x00000157 + (tmp2[30] >> 32);
+    tmp2[28] = tmp[13] * 0x00000157 + (tmp2[29] >> 32);
+    tmp2[27] = tmp[12] * 0x00000157 + (tmp2[28] >> 32);
+    tmp2[26] = tmp[11] * 0x00000157 + (tmp2[27] >> 32);
+    tmp2[25] = tmp[10] * 0x00000157 + (tmp2[26] >> 32);
+    tmp2[24] = tmp[9] * 0x00000157 + (tmp2[25] >> 32);
+    tmp2[23] = tmp[8] * 0x00000157 + (tmp2[24] >> 32);
+    tmp2[22] = tmp[7] * 0x00000157 + (tmp2[23] >> 32);
+    tmp2[21] = tmp[6] * 0x00000157 + (tmp2[22] >> 32);
+    tmp2[20] = tmp[5] * 0x00000157 + (tmp2[21] >> 32);
+    tmp2[19] = tmp[4] * 0x00000157 + (tmp2[20] >> 32);
+    tmp2[18] = tmp[3] * 0x00000157 + (tmp2[19] >> 32);
+    tmp2[17] = tmp[2] * 0x00000157 + (tmp2[18] >> 32);
+    tmp2[16] = tmp[1] * 0x00000157 + (tmp2[17] >> 32);
+    tmp2[15] = tmp[0] * 0x00000157 + (tmp2[16] >> 32);
+    tmp2[14] = /* 0 + */ tmp2[15] >> 32;
+    /* drop carries */
+    tmp2[30] &= 0xffffffff;
+    tmp2[29] &= 0xffffffff;
+    tmp2[28] &= 0xffffffff;
+    tmp2[27] &= 0xffffffff;
+    tmp2[26] &= 0xffffffff;
+    tmp2[25] &= 0xffffffff;
+    tmp2[24] &= 0xffffffff;
+    tmp2[23] &= 0xffffffff;
+    tmp2[22] &= 0xffffffff;
+    tmp2[21] &= 0xffffffff;
+    tmp2[20] &= 0xffffffff;
+    tmp2[19] &= 0xffffffff;
+    tmp2[18] &= 0xffffffff;
+    tmp2[17] &= 0xffffffff;
+    tmp2[16] &= 0xffffffff;
+    tmp2[14] &= 0xffffffff;
+
+    /* highest 32 bits */
+
+    /* multiply and keep carries forward */
+    tmp2[20] += tmp[15] * 0x01000000;
+    tmp2[19] += tmp[14] * 0x01000000 + (tmp2[20] >> 32);
+    tmp2[18] += tmp[13] * 0x01000000 + (tmp2[19] >> 32);
+    tmp2[17] += tmp[12] * 0x01000000 + (tmp2[18] >> 32);
+    tmp2[16] += tmp[11] * 0x01000000 + (tmp2[17] >> 32);
+    tmp2[15] += tmp[10] * 0x01000000 + (tmp2[16] >> 32);
+
+    /* drop carries */
+    tmp2[20] &= 0xffffffff;
+    tmp2[19] &= 0xffffffff;
+    tmp2[18] &= 0xffffffff;
+    tmp2[17] &= 0xffffffff;
+    tmp2[16] &= 0xffffffff;
+    tmp2[15] &= 0xffffffff;
+
+    tmp[15] = tmp2[30];
+    tmp[14] = tmp2[29];
+    tmp[13] = tmp2[28];
+    tmp[12] = tmp2[27];
+    tmp[11] = tmp2[26];
+    tmp[10] = tmp2[25];
+    tmp[9] = tmp2[24];
+    tmp[8] = tmp2[23];
+    tmp[7] = tmp2[22];
+    tmp[6] = tmp2[21];
+    tmp[5] = tmp2[20];
+    tmp[4] = tmp2[19];
+    tmp[3] = tmp2[18];
+    tmp[2] = tmp2[17];
+    tmp[1] = tmp2[16];
+    tmp[0] = tmp2[15];
+
+    data++;
+  }
+
+  hash[0] = (tmp[0] >> 24) & 0xff;
+  hash[1] = (tmp[0] >> 16) & 0xff;
+  hash[2] = (tmp[0] >> 8) & 0xff;
+  hash[3] = (tmp[0] >> 0) & 0xff;
+  hash[4] = (tmp[1] >> 24) & 0xff;
+  hash[5] = (tmp[1] >> 16) & 0xff;
+  hash[6] = (tmp[1] >> 8) & 0xff;
+  hash[7] = (tmp[1] >> 0) & 0xff;
+  hash[8] = (tmp[2] >> 24) & 0xff;
+  hash[9] = (tmp[2] >> 16) & 0xff;
+  hash[10] = (tmp[2] >> 8) & 0xff;
+  hash[11] = (tmp[2] >> 0) & 0xff;
+  hash[12] = (tmp[3] >> 24) & 0xff;
+  hash[13] = (tmp[3] >> 16) & 0xff;
+  hash[14] = (tmp[3] >> 8) & 0xff;
+  hash[15] = (tmp[3] >> 0) & 0xff;
+  hash[16] = (tmp[4] >> 24) & 0xff;
+  hash[17] = (tmp[4] >> 16) & 0xff;
+  hash[18] = (tmp[4] >> 8) & 0xff;
+  hash[19] = (tmp[4] >> 0) & 0xff;
+  hash[20] = (tmp[5] >> 24) & 0xff;
+  hash[21] = (tmp[5] >> 16) & 0xff;
+  hash[22] = (tmp[5] >> 8) & 0xff;
+  hash[23] = (tmp[5] >> 0) & 0xff;
+  hash[24] = (tmp[6] >> 24) & 0xff;
+  hash[25] = (tmp[6] >> 16) & 0xff;
+  hash[26] = (tmp[6] >> 8) & 0xff;
+  hash[27] = (tmp[6] >> 0) & 0xff;
+  hash[28] = (tmp[7] >> 24) & 0xff;
+  hash[29] = (tmp[7] >> 16) & 0xff;
+  hash[30] = (tmp[7] >> 8) & 0xff;
+  hash[31] = (tmp[7] >> 0) & 0xff;
+
+  hash[32] = (tmp[8] >> 24) & 0xff;
+  hash[33] = (tmp[8] >> 16) & 0xff;
+  hash[34] = (tmp[8] >> 8) & 0xff;
+  hash[35] = (tmp[8] >> 0) & 0xff;
+  hash[36] = (tmp[9] >> 24) & 0xff;
+  hash[37] = (tmp[9] >> 16) & 0xff;
+  hash[38] = (tmp[9] >> 8) & 0xff;
+  hash[39] = (tmp[9] >> 0) & 0xff;
+  hash[40] = (tmp[10] >> 24) & 0xff;
+  hash[41] = (tmp[10] >> 16) & 0xff;
+  hash[42] = (tmp[10] >> 8) & 0xff;
+  hash[43] = (tmp[10] >> 0) & 0xff;
+  hash[44] = (tmp[11] >> 24) & 0xff;
+  hash[45] = (tmp[11] >> 16) & 0xff;
+  hash[46] = (tmp[11] >> 8) & 0xff;
+  hash[47] = (tmp[11] >> 0) & 0xff;
+  hash[48] = (tmp[12] >> 24) & 0xff;
+  hash[49] = (tmp[12] >> 16) & 0xff;
+  hash[50] = (tmp[12] >> 8) & 0xff;
+  hash[51] = (tmp[12] >> 0) & 0xff;
+  hash[52] = (tmp[13] >> 24) & 0xff;
+  hash[53] = (tmp[13] >> 16) & 0xff;
+  hash[54] = (tmp[13] >> 8) & 0xff;
+  hash[55] = (tmp[13] >> 0) & 0xff;
+  hash[56] = (tmp[14] >> 24) & 0xff;
+  hash[57] = (tmp[14] >> 16) & 0xff;
+  hash[58] = (tmp[14] >> 8) & 0xff;
+  hash[59] = (tmp[14] >> 0) & 0xff;
+  hash[60] = (tmp[15] >> 24) & 0xff;
+  hash[61] = (tmp[15] >> 16) & 0xff;
+  hash[62] = (tmp[15] >> 8) & 0xff;
+  hash[63] = (tmp[15] >> 0) & 0xff;
 }
