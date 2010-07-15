@@ -23,12 +23,15 @@
 
 #include "fnv.h"
 
-/* Implementations of FNV 1 and 1A for various bit depths
+/* Implementations of the Fowler–Noll–Vo hash function.
+ * This implements FNV 1 and 1A for various bit depths
+ *
+ * For more details see:
  * http://www.isthe.com/chongo/tech/comp/fnv/index.html
  */
 
-static const uint32_t FNV_prime_32 = 16777619;
-static const uint32_t FNV_offset_32 = 2166136261;
+static const uint32_t FNV_prime_32 = 16777619U;
+static const uint32_t FNV_offset_32 = 2166136261U;
 
 void
 fnv1_32 (const uint8_t *data, size_t len, uint8_t hash[4])

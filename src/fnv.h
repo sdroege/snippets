@@ -22,11 +22,64 @@
 
 #include "utils.h"
 
+/** fnv1_32:
+ *  @data: Data to be hashed
+ *  @len: Length of @data in bytes
+ *  @hash: Pointer to a 4 byte array for the calculated hash
+ *
+ *  Calculates the FNV1 32 bit hash from @data and puts it
+ *  into @hash.
+ */
 void fnv1_32 (const uint8_t *data, size_t len, uint8_t hash[4]);
-void fnv1_64 (const uint8_t *data, size_t len, uint8_t hash[4]);
+
+/** fnv1a_32:
+ *  @data: Data to be hashed
+ *  @len: Length of @data in bytes
+ *  @hash: Pointer to a 4 byte array for the calculated hash
+ *
+ *  Calculates the FNV1A 32 bit hash from @data and puts it
+ *  into @hash.
+ */
 void fnv1a_32 (const uint8_t *data, size_t len, uint8_t hash[8]);
+
+/** fnv1_64:
+ *  @data: Data to be hashed
+ *  @len: Length of @data in bytes
+ *  @hash: Pointer to a 8 byte array for the calculated hash
+ *
+ *  Calculates the FNV1 64 bit hash from @data and puts it
+ *  into @hash.
+ */
+void fnv1_64 (const uint8_t *data, size_t len, uint8_t hash[4]);
+
+/** fnv1a_64:
+ *  @data: Data to be hashed
+ *  @len: Length of @data in bytes
+ *  @hash: Pointer to a 8 byte array for the calculated hash
+ *
+ *  Calculates the FNV1A 64 bit hash from @data and puts it
+ *  into @hash.
+ */
 void fnv1a_64 (const uint8_t *data, size_t len, uint8_t hash[8]);
+
+/** fnv1_128:
+ *  @data: Data to be hashed
+ *  @len: Length of @data in bytes
+ *  @hash: Pointer to a 16 byte array for the calculated hash
+ *
+ *  Calculates the FNV1 128 bit hash from @data and puts it
+ *  into @hash.
+ */
 void fnv1_128 (const uint8_t *data, size_t len, uint8_t hash[16]);
+
+/** fnv1a_128:
+ *  @data: Data to be hashed
+ *  @len: Length of @data in bytes
+ *  @hash: Pointer to a 16 byte array for the calculated hash
+ *
+ *  Calculates the FNV1A 128 bit hash from @data and puts it
+ *  into @hash.
+ */
 void fnv1a_128 (const uint8_t *data, size_t len, uint8_t hash[16]);
 
 #endif /* __FNV_H__ */
