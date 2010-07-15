@@ -135,6 +135,88 @@ START_TEST (test_1a_128)
 }
 END_TEST;
 
+START_TEST (test_1_256)
+{
+  const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  uint8_t hash[32];
+
+  fnv1_256 ((const uint8_t *) str, strlen (str), hash);
+  fail_unless (hash[0] == 0x73);
+  fail_unless (hash[1] == 0x5a);
+  fail_unless (hash[2] == 0x7c);
+  fail_unless (hash[3] == 0x96);
+  fail_unless (hash[4] == 0x69);
+  fail_unless (hash[5] == 0x33);
+  fail_unless (hash[6] == 0x79);
+  fail_unless (hash[7] == 0x25);
+  fail_unless (hash[8] == 0xdd);
+  fail_unless (hash[9] == 0x4a);
+  fail_unless (hash[10] == 0xa3);
+  fail_unless (hash[11] == 0xbc);
+  fail_unless (hash[12] == 0x1f);
+  fail_unless (hash[13] == 0xae);
+  fail_unless (hash[14] == 0xde);
+  fail_unless (hash[15] == 0xc3);
+  fail_unless (hash[16] == 0x3d);
+  fail_unless (hash[17] == 0x6b);
+  fail_unless (hash[18] == 0x2a);
+  fail_unless (hash[19] == 0xe9);
+  fail_unless (hash[20] == 0xb0);
+  fail_unless (hash[21] == 0x28);
+  fail_unless (hash[22] == 0x71);
+  fail_unless (hash[23] == 0x6d);
+  fail_unless (hash[24] == 0xe7);
+  fail_unless (hash[25] == 0x65);
+  fail_unless (hash[26] == 0x2a);
+  fail_unless (hash[27] == 0x29);
+  fail_unless (hash[28] == 0xbf);
+  fail_unless (hash[29] == 0xb6);
+  fail_unless (hash[30] == 0x99);
+  fail_unless (hash[31] == 0x19);
+}
+END_TEST;
+
+START_TEST (test_1a_256)
+{
+  const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  uint8_t hash[32];
+
+  fnv1a_256 ((const uint8_t *) str, strlen (str), hash);
+  fail_unless (hash[0] == 0xc2);
+  fail_unless (hash[1] == 0x5f);
+  fail_unless (hash[2] == 0xb3);
+  fail_unless (hash[3] == 0xfd);
+  fail_unless (hash[4] == 0x87);
+  fail_unless (hash[5] == 0xc6);
+  fail_unless (hash[6] == 0x79);
+  fail_unless (hash[7] == 0xaf);
+  fail_unless (hash[8] == 0x4b);
+  fail_unless (hash[9] == 0x26);
+  fail_unless (hash[10] == 0x16);
+  fail_unless (hash[11] == 0x29);
+  fail_unless (hash[12] == 0x02);
+  fail_unless (hash[13] == 0xc6);
+  fail_unless (hash[14] == 0xef);
+  fail_unless (hash[15] == 0x4f);
+  fail_unless (hash[16] == 0x3d);
+  fail_unless (hash[17] == 0x23);
+  fail_unless (hash[18] == 0x65);
+  fail_unless (hash[19] == 0x92);
+  fail_unless (hash[20] == 0x57);
+  fail_unless (hash[21] == 0x71);
+  fail_unless (hash[22] == 0xab);
+  fail_unless (hash[23] == 0x30);
+  fail_unless (hash[24] == 0xe3);
+  fail_unless (hash[25] == 0x73);
+  fail_unless (hash[26] == 0x9f);
+  fail_unless (hash[27] == 0x47);
+  fail_unless (hash[28] == 0x42);
+  fail_unless (hash[29] == 0x53);
+  fail_unless (hash[30] == 0x9b);
+  fail_unless (hash[31] == 0x2d);
+}
+END_TEST;
+
 static Suite *
 fnv_suite (void)
 {
@@ -148,6 +230,8 @@ fnv_suite (void)
   tcase_add_test (tc_general, test_1a_64);
   tcase_add_test (tc_general, test_1_128);
   tcase_add_test (tc_general, test_1a_128);
+  tcase_add_test (tc_general, test_1_256);
+  tcase_add_test (tc_general, test_1a_256);
   suite_add_tcase (s, tc_general);
 
   return s;
