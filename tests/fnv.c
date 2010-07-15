@@ -36,6 +36,7 @@ START_TEST (test_1_32)
   fail_unless (hash[2] == 0x79);
   fail_unless (hash[3] == 0xf9);
 }
+
 END_TEST;
 
 START_TEST (test_1a_32)
@@ -49,6 +50,7 @@ START_TEST (test_1a_32)
   fail_unless (hash[2] == 0x61);
   fail_unless (hash[3] == 0xcd);
 }
+
 END_TEST;
 
 START_TEST (test_1_64)
@@ -66,6 +68,7 @@ START_TEST (test_1_64)
   fail_unless (hash[6] == 0xe7);
   fail_unless (hash[7] == 0x79);
 }
+
 END_TEST;
 
 START_TEST (test_1a_64)
@@ -83,6 +86,7 @@ START_TEST (test_1a_64)
   fail_unless (hash[6] == 0x1e);
   fail_unless (hash[7] == 0x8d);
 }
+
 END_TEST;
 
 START_TEST (test_1_128)
@@ -108,6 +112,7 @@ START_TEST (test_1_128)
   fail_unless (hash[14] == 0x7d);
   fail_unless (hash[15] == 0xd9);
 }
+
 END_TEST;
 
 START_TEST (test_1a_128)
@@ -133,6 +138,7 @@ START_TEST (test_1a_128)
   fail_unless (hash[14] == 0x4d);
   fail_unless (hash[15] == 0xad);
 }
+
 END_TEST;
 
 START_TEST (test_1_256)
@@ -174,6 +180,7 @@ START_TEST (test_1_256)
   fail_unless (hash[30] == 0x99);
   fail_unless (hash[31] == 0x19);
 }
+
 END_TEST;
 
 START_TEST (test_1a_256)
@@ -215,6 +222,7 @@ START_TEST (test_1a_256)
   fail_unless (hash[30] == 0x9b);
   fail_unless (hash[31] == 0x2d);
 }
+
 END_TEST;
 
 static Suite *
@@ -248,4 +256,3 @@ main (void)
   srunner_free (sr);
   return (number_failed == 0) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
-

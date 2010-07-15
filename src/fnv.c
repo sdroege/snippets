@@ -34,17 +34,17 @@ static const uint32_t FNV_prime_32 = 16777619U;
 static const uint32_t FNV_offset_32 = 2166136261U;
 
 void
-fnv1_32 (const uint8_t *data, size_t len, uint8_t hash[4])
+fnv1_32 (const uint8_t * data, size_t len, uint8_t hash[4])
 {
   size_t i;
   uint32_t tmp = FNV_offset_32;
 
   for (i = 0; i < len; i++) {
-    tmp = tmp * FNV_prime_32; /* Multiplication mod 2^32 as per C standard */
+    tmp = tmp * FNV_prime_32;   /* Multiplication mod 2^32 as per C standard */
     tmp = tmp ^ *data;
     data++;
   }
-  
+
   hash[0] = (tmp >> 24) & 0xff;
   hash[1] = (tmp >> 16) & 0xff;
   hash[2] = (tmp >> 8) & 0xff;
@@ -52,17 +52,17 @@ fnv1_32 (const uint8_t *data, size_t len, uint8_t hash[4])
 }
 
 void
-fnv1a_32 (const uint8_t *data, size_t len, uint8_t hash[4])
+fnv1a_32 (const uint8_t * data, size_t len, uint8_t hash[4])
 {
   size_t i;
   uint32_t tmp = FNV_offset_32;
 
   for (i = 0; i < len; i++) {
     tmp = tmp ^ *data;
-    tmp = tmp * FNV_prime_32; /* Multiplication mod 2^32 as per C standard */
+    tmp = tmp * FNV_prime_32;   /* Multiplication mod 2^32 as per C standard */
     data++;
   }
-  
+
   hash[0] = (tmp >> 24) & 0xff;
   hash[1] = (tmp >> 16) & 0xff;
   hash[2] = (tmp >> 8) & 0xff;
@@ -73,17 +73,17 @@ static const uint64_t FNV_prime_64 = 1099511628211ULL;
 static const uint64_t FNV_offset_64 = 14695981039346656037ULL;
 
 void
-fnv1_64 (const uint8_t *data, size_t len, uint8_t hash[8])
+fnv1_64 (const uint8_t * data, size_t len, uint8_t hash[8])
 {
   size_t i;
   uint64_t tmp = FNV_offset_64;
 
   for (i = 0; i < len; i++) {
-    tmp = tmp * FNV_prime_64; /* Multiplication mod 2^64 as per C standard */
+    tmp = tmp * FNV_prime_64;   /* Multiplication mod 2^64 as per C standard */
     tmp = tmp ^ *data;
     data++;
   }
-  
+
   hash[0] = (tmp >> 56) & 0xff;
   hash[1] = (tmp >> 48) & 0xff;
   hash[2] = (tmp >> 40) & 0xff;
@@ -95,17 +95,17 @@ fnv1_64 (const uint8_t *data, size_t len, uint8_t hash[8])
 }
 
 void
-fnv1a_64 (const uint8_t *data, size_t len, uint8_t hash[8])
+fnv1a_64 (const uint8_t * data, size_t len, uint8_t hash[8])
 {
   size_t i;
   uint64_t tmp = FNV_offset_64;
 
   for (i = 0; i < len; i++) {
     tmp = tmp ^ *data;
-    tmp = tmp * FNV_prime_64; /* Multiplication mod 2^64 as per C standard */
+    tmp = tmp * FNV_prime_64;   /* Multiplication mod 2^64 as per C standard */
     data++;
   }
-  
+
   hash[0] = (tmp >> 56) & 0xff;
   hash[1] = (tmp >> 48) & 0xff;
   hash[2] = (tmp >> 40) & 0xff;
@@ -120,7 +120,7 @@ fnv1a_64 (const uint8_t *data, size_t len, uint8_t hash[8])
  * 128 bit offset = 144066263297769815596495629667062367629 = 0x6c62272e07bb014262b821756295c58d
  */
 void
-fnv1_128 (const uint8_t *data, size_t len, uint8_t hash[16])
+fnv1_128 (const uint8_t * data, size_t len, uint8_t hash[16])
 {
   size_t i;
   uint64_t tmp[4], tmp2[7];
@@ -175,7 +175,7 @@ fnv1_128 (const uint8_t *data, size_t len, uint8_t hash[16])
 
     data++;
   }
-  
+
   hash[0] = (tmp[0] >> 24) & 0xff;
   hash[1] = (tmp[0] >> 16) & 0xff;
   hash[2] = (tmp[0] >> 8) & 0xff;
@@ -195,7 +195,7 @@ fnv1_128 (const uint8_t *data, size_t len, uint8_t hash[16])
 }
 
 void
-fnv1a_128 (const uint8_t *data, size_t len, uint8_t hash[16])
+fnv1a_128 (const uint8_t * data, size_t len, uint8_t hash[16])
 {
   size_t i;
   uint64_t tmp[4], tmp2[7];
@@ -250,7 +250,7 @@ fnv1a_128 (const uint8_t *data, size_t len, uint8_t hash[16])
 
     data++;
   }
-  
+
   hash[0] = (tmp[0] >> 24) & 0xff;
   hash[1] = (tmp[0] >> 16) & 0xff;
   hash[2] = (tmp[0] >> 8) & 0xff;
@@ -283,7 +283,7 @@ fnv1a_128 (const uint8_t *data, size_t len, uint8_t hash[16])
  * 00000000000000000000000000000163
  */
 void
-fnv1_256 (const uint8_t *data, size_t len, uint8_t hash[32])
+fnv1_256 (const uint8_t * data, size_t len, uint8_t hash[32])
 {
   size_t i;
   uint64_t tmp[8], tmp2[15];
@@ -346,7 +346,7 @@ fnv1_256 (const uint8_t *data, size_t len, uint8_t hash[32])
 
     data++;
   }
-  
+
   hash[0] = (tmp[0] >> 24) & 0xff;
   hash[1] = (tmp[0] >> 16) & 0xff;
   hash[2] = (tmp[0] >> 8) & 0xff;
@@ -382,7 +382,7 @@ fnv1_256 (const uint8_t *data, size_t len, uint8_t hash[32])
 }
 
 void
-fnv1a_256 (const uint8_t *data, size_t len, uint8_t hash[32])
+fnv1a_256 (const uint8_t * data, size_t len, uint8_t hash[32])
 {
   size_t i;
   uint64_t tmp[8], tmp2[15];
@@ -445,7 +445,7 @@ fnv1a_256 (const uint8_t *data, size_t len, uint8_t hash[32])
 
     data++;
   }
-  
+
   hash[0] = (tmp[0] >> 24) & 0xff;
   hash[1] = (tmp[0] >> 16) & 0xff;
   hash[2] = (tmp[0] >> 8) & 0xff;
