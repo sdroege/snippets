@@ -62,8 +62,6 @@ AM_CONDITIONAL(HAVE_VALGRIND_3_4_0, test "x$have_valgrind_3_4_0" = "xyes")
 AC_PATH_PROG(GDB, gdb, no)
 AM_CONDITIONAL(HAVE_GDB, test ! "x$GDB" = "xno")
 
-CFLAGS="$CFLAGS -Wall"
-
 AC_ARG_ENABLE([coverage],
     AS_HELP_STRING([--enable-coverage],
       [enable code coverage output (default=no)])],
@@ -82,6 +80,47 @@ if test "x$enable_coverage" = "xyes"; then
   fi
 fi
 AM_CONDITIONAL(ENABLE_COVERAGE, test "x$enable_coverage" != "xno")
+
+CFLAGS="$CFLAGS -Wall"
+
+AC_ARG_ENABLE(more-warnings,
+AC_HELP_STRING([--enable-more-warnings], [Enable more compiler warnings]),
+set_more_warnings="$enableval", set_more_warnings=no)
+
+AC_MSG_CHECKING(for more warnings)
+if test "$GCC" = "yes" -a "$set_more_warnings" != "no"; then
+  AC_MSG_RESULT(yes)
+  
+  for option in -Wchar-subscripts -Wmissing-declarations -Wmissing-prototypes -Wnested-externs -Wpointer-arith -Wcast-align -Wredundant-decls -Wundef -Wwrite-strings -Wformat-nonliteral -Wformat-security -Wold-style-definition -Winit-self -Wmissing-include-dirs -Waddress -Waggregate-return -Wno-multichar; do
+    SAVE_CFLAGS="$CFLAGS"
+    CFLAGS="$CFLAGS $option"
+    AC_MSG_CHECKING([whether gcc understands $option])
+    AC_TRY_COMPILE([], [],
+      has_option=yes,
+      has_option=no,)
+    if test $has_option = no; then
+      CFLAGS="$SAVE_CFLAGS"
+    fi
+    AC_MSG_RESULT($has_option)
+    unset has_option
+    unset SAVE_CFLAGS
+  done
+  unset option
+else
+  AC_MSG_RESULT(no)
+fi
+
+AC_ARG_ENABLE(warnings-as-errors,
+AC_HELP_STRING([--enable-warnings-as-errors], [Handle compiler warnings as errors]),
+set_werror="$enableval", set_werror=no)
+
+AC_MSG_CHECKING(for handling compiler warnings as errors)
+if test "$GCC" = "yes" -a "$set_werror" != "no"; then
+  AC_MSG_RESULT(yes)
+  CFLAGS="$CFLAGS -Werror"
+else
+  AC_MSG_RESULT(no)
+fi
 
 AC_CONFIG_FILES([
   Makefile
