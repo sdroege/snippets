@@ -20,7 +20,7 @@
 #ifndef __SNIPPETS_FNV_H__
 #define __SNIPPETS_FNV_H__
 
-#include "utils.h"
+#include <snippets/utils.h>
 
 SNIPPETS_BEGIN_DECLS
 

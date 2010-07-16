@@ -21,7 +21,7 @@
 #include "config.h"
 #endif
 
-#include "fnv.h"
+#include <snippets/fnv.h>
 
 /* Implementations of the Fowler–Noll–Vo hash function.
  * This implements FNV 1 and 1A for various bit depths

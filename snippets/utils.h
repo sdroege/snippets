@@ -22,7 +22,7 @@
 
 #include <stdlib.h>
 
-#include "snippets-stdint.h"
+#include <snippets/snippets-stdint.h>
 
 #ifndef NULL
 #define NULL ((void *) 0)
@@ -44,6 +44,8 @@
 # define SNIPPETS_END_DECLS
 #endif
 
+SNIPPETS_BEGIN_DECLS
+
 static inline void *
 snippets_malloc (size_t size)
 {
@@ -62,5 +64,7 @@ snippets_free (void * ptr)
   if (ptr)
     free (ptr);
 }
+
+SNIPPETS_END_DECLS
 
 #endif /* __UTILS_H__ */

@@ -23,7 +23,7 @@
 
 #include <check.h>
 
-#include "fnv.h"
+#include <snippets/fnv.h>
 
 START_TEST (test_1_32)
 {
