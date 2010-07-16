@@ -30,7 +30,7 @@ START_TEST (test_1_32)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[4];
 
-  fnv1_32 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1_32 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x94);
   fail_unless (hash[1] == 0x41);
   fail_unless (hash[2] == 0x79);
@@ -44,7 +44,7 @@ START_TEST (test_1a_32)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[4];
 
-  fnv1a_32 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1a_32 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x3e);
   fail_unless (hash[1] == 0xda);
   fail_unless (hash[2] == 0x61);
@@ -58,7 +58,7 @@ START_TEST (test_1_64)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[8];
 
-  fnv1_64 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1_64 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x94);
   fail_unless (hash[1] == 0xd9);
   fail_unless (hash[2] == 0x0d);
@@ -76,7 +76,7 @@ START_TEST (test_1a_64)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[8];
 
-  fnv1a_64 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1a_64 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x37);
   fail_unless (hash[1] == 0x22);
   fail_unless (hash[2] == 0xd9);
@@ -94,7 +94,7 @@ START_TEST (test_1_128)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[16];
 
-  fnv1_128 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1_128 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0xa5);
   fail_unless (hash[1] == 0xfe);
   fail_unless (hash[2] == 0xd2);
@@ -120,7 +120,7 @@ START_TEST (test_1a_128)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[16];
 
-  fnv1a_128 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1a_128 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x6f);
   fail_unless (hash[1] == 0x36);
   fail_unless (hash[2] == 0x56);
@@ -146,7 +146,7 @@ START_TEST (test_1_256)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[32];
 
-  fnv1_256 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1_256 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x73);
   fail_unless (hash[1] == 0x5a);
   fail_unless (hash[2] == 0x7c);
@@ -188,7 +188,7 @@ START_TEST (test_1a_256)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[32];
 
-  fnv1a_256 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1a_256 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0xc2);
   fail_unless (hash[1] == 0x5f);
   fail_unless (hash[2] == 0xb3);
@@ -230,7 +230,7 @@ START_TEST (test_1_512)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[64];
 
-  fnv1_512 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1_512 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x31);
   fail_unless (hash[1] == 0xd6);
   fail_unless (hash[2] == 0x3b);
@@ -304,7 +304,7 @@ START_TEST (test_1a_512)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[64];
 
-  fnv1a_512 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1a_512 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x13);
   fail_unless (hash[1] == 0x92);
   fail_unless (hash[2] == 0x20);
@@ -378,7 +378,7 @@ START_TEST (test_1_1024)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[128];
 
-  fnv1_1024 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1_1024 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x0c);
   fail_unless (hash[1] == 0x3e);
   fail_unless (hash[2] == 0x0e);
@@ -516,7 +516,7 @@ START_TEST (test_1a_1024)
   const char *str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
   uint8_t hash[128];
 
-  fnv1a_1024 ((const uint8_t *) str, strlen (str), hash);
+  snippets_fnv1a_1024 ((const uint8_t *) str, strlen (str), hash);
   fail_unless (hash[0] == 0x0c);
   fail_unless (hash[1] == 0x3e);
   fail_unless (hash[2] == 0x0e);

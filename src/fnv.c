@@ -34,7 +34,7 @@ static const uint32_t FNV_prime_32 = 16777619U;
 static const uint32_t FNV_offset_32 = 2166136261U;
 
 void
-fnv1_32 (const uint8_t * data, size_t len, uint8_t hash[4])
+snippets_fnv1_32 (const uint8_t * data, size_t len, uint8_t hash[4])
 {
   size_t i;
   uint32_t tmp = FNV_offset_32;
@@ -52,7 +52,7 @@ fnv1_32 (const uint8_t * data, size_t len, uint8_t hash[4])
 }
 
 void
-fnv1a_32 (const uint8_t * data, size_t len, uint8_t hash[4])
+snippets_fnv1a_32 (const uint8_t * data, size_t len, uint8_t hash[4])
 {
   size_t i;
   uint32_t tmp = FNV_offset_32;
@@ -73,7 +73,7 @@ static const uint64_t FNV_prime_64 = 1099511628211ULL;
 static const uint64_t FNV_offset_64 = 14695981039346656037ULL;
 
 void
-fnv1_64 (const uint8_t * data, size_t len, uint8_t hash[8])
+snippets_fnv1_64 (const uint8_t * data, size_t len, uint8_t hash[8])
 {
   size_t i;
   uint64_t tmp = FNV_offset_64;
@@ -95,7 +95,7 @@ fnv1_64 (const uint8_t * data, size_t len, uint8_t hash[8])
 }
 
 void
-fnv1a_64 (const uint8_t * data, size_t len, uint8_t hash[8])
+snippets_fnv1a_64 (const uint8_t * data, size_t len, uint8_t hash[8])
 {
   size_t i;
   uint64_t tmp = FNV_offset_64;
@@ -120,7 +120,7 @@ fnv1a_64 (const uint8_t * data, size_t len, uint8_t hash[8])
  * 128 bit offset = 144066263297769815596495629667062367629 = 0x6c62272e07bb014262b821756295c58d
  */
 void
-fnv1_128 (const uint8_t * data, size_t len, uint8_t hash[16])
+snippets_fnv1_128 (const uint8_t * data, size_t len, uint8_t hash[16])
 {
   size_t i;
   uint64_t tmp[4], tmp2[4];
@@ -183,7 +183,7 @@ fnv1_128 (const uint8_t * data, size_t len, uint8_t hash[16])
 }
 
 void
-fnv1a_128 (const uint8_t * data, size_t len, uint8_t hash[16])
+snippets_fnv1a_128 (const uint8_t * data, size_t len, uint8_t hash[16])
 {
   size_t i;
   uint64_t tmp[4], tmp2[4];
@@ -251,7 +251,7 @@ fnv1a_128 (const uint8_t * data, size_t len, uint8_t hash[16])
  *                = 0xdd268dbcaac550362d98c384c4e576ccc8b1536847b6bbb31023b4c8caee0535
  */
 void
-fnv1_256 (const uint8_t * data, size_t len, uint8_t hash[32])
+snippets_fnv1_256 (const uint8_t * data, size_t len, uint8_t hash[32])
 {
   size_t i;
   uint64_t tmp[8], tmp2[8];
@@ -348,7 +348,7 @@ fnv1_256 (const uint8_t * data, size_t len, uint8_t hash[32])
 }
 
 void
-fnv1a_256 (const uint8_t * data, size_t len, uint8_t hash[32])
+snippets_fnv1a_256 (const uint8_t * data, size_t len, uint8_t hash[32])
 {
   size_t i;
   uint64_t tmp[8], tmp2[8];
@@ -457,7 +457,7 @@ fnv1a_256 (const uint8_t * data, size_t len, uint8_t hash[32])
  *                  982aac4afe9fd9
  */
 void
-fnv1_512 (const uint8_t * data, size_t len, uint8_t hash[64])
+snippets_fnv1_512 (const uint8_t * data, size_t len, uint8_t hash[64])
 {
   size_t i;
   uint64_t tmp[16], tmp2[16];
@@ -625,7 +625,7 @@ fnv1_512 (const uint8_t * data, size_t len, uint8_t hash[64])
 }
 
 void
-fnv1a_512 (const uint8_t * data, size_t len, uint8_t hash[64])
+snippets_fnv1a_512 (const uint8_t * data, size_t len, uint8_t hash[64])
 {
   size_t i;
   uint64_t tmp[16], tmp2[16];
@@ -813,7 +813,7 @@ fnv1a_512 (const uint8_t * data, size_t len, uint8_t hash[64])
  *                   c6a93b21aff4b16c71ee90b3
  */
 void
-fnv1_1024 (const uint8_t * data, size_t len, uint8_t hash[128])
+snippets_fnv1_1024 (const uint8_t * data, size_t len, uint8_t hash[128])
 {
   size_t i;
   uint64_t tmp[32], tmp2[32];
@@ -1121,7 +1121,7 @@ fnv1_1024 (const uint8_t * data, size_t len, uint8_t hash[128])
 }
 
 void
-fnv1a_1024 (const uint8_t * data, size_t len, uint8_t hash[128])
+snippets_fnv1a_1024 (const uint8_t * data, size_t len, uint8_t hash[128])
 {
   size_t i;
   uint64_t tmp[32], tmp2[32];

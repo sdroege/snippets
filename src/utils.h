@@ -36,4 +36,31 @@
 #define TRUE (!FALSE)
 #endif
 
+#ifdef  __cplusplus
+# define SNIPPETS_BEGIN_DECLS  extern "C" {
+# define SNIPPETS_END_DECLS    }
+#else
+# define SNIPPETS_BEGIN_DECLS
+# define SNIPPETS_END_DECLS
+#endif
+
+static inline void *
+snippets_malloc (size_t size)
+{
+  return size ? malloc (size) : NULL;
+}
+
+static inline void *
+snippets_malloc0 (size_t size)
+{
+  return size ? calloc (size, 0) : NULL;
+}
+
+static inline void
+snippets_free (void * ptr)
+{
+  if (ptr)
+    free (ptr);
+}
+
 #endif /* __UTILS_H__ */

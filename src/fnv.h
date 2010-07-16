@@ -17,10 +17,12 @@
  * If not, see <http://www.gnu.org/licenses/>.
  */
 
-#ifndef __FNV_H__
-#define __FNV_H__
+#ifndef __SNIPPETS_FNV_H__
+#define __SNIPPETS_FNV_H__
 
 #include "utils.h"
+
+SNIPPETS_BEGIN_DECLS
 
 /** fnv1_32:
  *  @data: Data to be hashed
@@ -30,7 +32,7 @@
  *  Calculates the FNV1 32 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1_32 (const uint8_t *data, size_t len, uint8_t hash[4]);
+void snippets_fnv1_32 (const uint8_t *data, size_t len, uint8_t hash[4]);
 
 /** fnv1a_32:
  *  @data: Data to be hashed
@@ -40,7 +42,7 @@ void fnv1_32 (const uint8_t *data, size_t len, uint8_t hash[4]);
  *  Calculates the FNV1A 32 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1a_32 (const uint8_t *data, size_t len, uint8_t hash[8]);
+void snippets_fnv1a_32 (const uint8_t *data, size_t len, uint8_t hash[8]);
 
 /** fnv1_64:
  *  @data: Data to be hashed
@@ -50,7 +52,7 @@ void fnv1a_32 (const uint8_t *data, size_t len, uint8_t hash[8]);
  *  Calculates the FNV1 64 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1_64 (const uint8_t *data, size_t len, uint8_t hash[4]);
+void snippets_fnv1_64 (const uint8_t *data, size_t len, uint8_t hash[4]);
 
 /** fnv1a_64:
  *  @data: Data to be hashed
@@ -60,7 +62,7 @@ void fnv1_64 (const uint8_t *data, size_t len, uint8_t hash[4]);
  *  Calculates the FNV1A 64 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1a_64 (const uint8_t *data, size_t len, uint8_t hash[8]);
+void snippets_fnv1a_64 (const uint8_t *data, size_t len, uint8_t hash[8]);
 
 /** fnv1_128:
  *  @data: Data to be hashed
@@ -70,7 +72,7 @@ void fnv1a_64 (const uint8_t *data, size_t len, uint8_t hash[8]);
  *  Calculates the FNV1 128 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1_128 (const uint8_t *data, size_t len, uint8_t hash[16]);
+void snippets_fnv1_128 (const uint8_t *data, size_t len, uint8_t hash[16]);
 
 /** fnv1a_128:
  *  @data: Data to be hashed
@@ -80,7 +82,7 @@ void fnv1_128 (const uint8_t *data, size_t len, uint8_t hash[16]);
  *  Calculates the FNV1A 128 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1a_128 (const uint8_t *data, size_t len, uint8_t hash[16]);
+void snippets_fnv1a_128 (const uint8_t *data, size_t len, uint8_t hash[16]);
 
 /** fnv1_256:
  *  @data: Data to be hashed
@@ -90,7 +92,7 @@ void fnv1a_128 (const uint8_t *data, size_t len, uint8_t hash[16]);
  *  Calculates the FNV1 256 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1_256 (const uint8_t *data, size_t len, uint8_t hash[32]);
+void snippets_fnv1_256 (const uint8_t *data, size_t len, uint8_t hash[32]);
 
 /** fnv1a_256:
  *  @data: Data to be hashed
@@ -100,7 +102,7 @@ void fnv1_256 (const uint8_t *data, size_t len, uint8_t hash[32]);
  *  Calculates the FNV1A 256 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1a_256 (const uint8_t *data, size_t len, uint8_t hash[32]);
+void snippets_fnv1a_256 (const uint8_t *data, size_t len, uint8_t hash[32]);
 
 /** fnv1_512:
  *  @data: Data to be hashed
@@ -110,7 +112,7 @@ void fnv1a_256 (const uint8_t *data, size_t len, uint8_t hash[32]);
  *  Calculates the FNV1 512 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1_512 (const uint8_t *data, size_t len, uint8_t hash[64]);
+void snippets_fnv1_512 (const uint8_t *data, size_t len, uint8_t hash[64]);
 
 /** fnv1a_512:
  *  @data: Data to be hashed
@@ -120,7 +122,7 @@ void fnv1_512 (const uint8_t *data, size_t len, uint8_t hash[64]);
  *  Calculates the FNV1A 512 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1a_512 (const uint8_t *data, size_t len, uint8_t hash[64]);
+void snippets_fnv1a_512 (const uint8_t *data, size_t len, uint8_t hash[64]);
 
 /** fnv1_1024:
  *  @data: Data to be hashed
@@ -130,7 +132,7 @@ void fnv1a_512 (const uint8_t *data, size_t len, uint8_t hash[64]);
  *  Calculates the FNV1 1024 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1_1024 (const uint8_t *data, size_t len, uint8_t hash[128]);
+void snippets_fnv1_1024 (const uint8_t *data, size_t len, uint8_t hash[128]);
 
 /** fnv1a_1024:
  *  @data: Data to be hashed
@@ -140,6 +142,8 @@ void fnv1_1024 (const uint8_t *data, size_t len, uint8_t hash[128]);
  *  Calculates the FNV1A 1024 bit hash from @data and puts it
  *  into @hash.
  */
-void fnv1a_1024 (const uint8_t *data, size_t len, uint8_t hash[128]);
+void snippets_fnv1a_1024 (const uint8_t *data, size_t len, uint8_t hash[128]);
 
-#endif /* __FNV_H__ */
+SNIPPETS_END_DECLS
+
+#endif /* __SNIPPETS_FNV_H__ */
