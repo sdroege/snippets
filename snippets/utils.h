@@ -44,27 +44,4 @@
 # define SNIPPETS_END_DECLS
 #endif
 
-SNIPPETS_BEGIN_DECLS
-
-static inline void *
-snippets_malloc (size_t size)
-{
-  return size ? malloc (size) : NULL;
-}
-
-static inline void *
-snippets_malloc0 (size_t size)
-{
-  return size ? calloc (size, 0) : NULL;
-}
-
-static inline void
-snippets_free (void * ptr)
-{
-  if (ptr)
-    free (ptr);
-}
-
-SNIPPETS_END_DECLS
-
 #endif /* __UTILS_H__ */
