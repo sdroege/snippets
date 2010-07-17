@@ -16,3 +16,8 @@ clean-local:
 check-valgrind:
 	$(MAKE) -C tests check-valgrind
 
+if ENABLE_COVERAGE
+coverage: clean all check
+	$(MAKE) -C coverage coverage
+endif
+
