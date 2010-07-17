@@ -13,3 +13,6 @@ clean-local:
 	-find $(top_builddir) -name *.gcda | xargs rm
 	-find $(top_builddir) -name *.gcno | xargs rm
 
+check-valgrind:
+	$(MAKE) -C tests check-valgrind
+
