@@ -1,5 +1,6 @@
 TESTS = \
-	test-fnv
+	test-fnv \
+	test-rand
 
 noinst_PROGRAMS = $(TESTS)
 
@@ -14,6 +15,10 @@ TESTS_LDADD = \
 test_fnv_SOURCES = fnv.c
 test_fnv_CFLAGS = $(TESTS_CFLAGS)
 test_fnv_LDADD = $(TESTS_LDADD)
+
+test_rand_SOURCES = rand.c
+test_rand_CFLAGS = $(TESTS_CFLAGS)
+test_rand_LDADD = $(TESTS_LDADD)
 
 include $(top_srcdir)/check.mk
 
