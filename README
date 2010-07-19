@@ -11,8 +11,16 @@ or any newer version.
 * Algorithms:
   + Fowler–Noll–Vo hash function in 32, 64, 128, 256, 512 and
     1024 bit variants.
+  + Pseudo random number generator for uniformly distributed
+    32 bit integers and doubles in arbitrary ranges.
+    - MT19937 mersenne prime twister
+    - Linear congruential generator
 
 * Data structures:
+  + (Double) Linked list
+    - O(1) append/prepend
+    - Pointer storage or data storage with single allocation
+    - Memory managment
   + Skip list (TODO)
   + Bloom filter (TODO)
 

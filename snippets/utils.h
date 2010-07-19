@@ -44,4 +44,11 @@
 # define SNIPPETS_END_DECLS
 #endif
 
+SNIPPETS_BEGIN_DECLS
+
+typedef void (*SnippetsCopyToFunction) (void *dest, const void *src);
+typedef void (*SnippetsFreeFunction) (void *o);
+
+SNIPPETS_END_DECLS
+
 #endif /* __UTILS_H__ */

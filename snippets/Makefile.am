@@ -1,6 +1,7 @@
 lib_LTLIBRARIES = libsnippets.la
 
 libsnippets_la_SOURCES = \
+	linkedlist.c \
 	fnv.c \
 	rand.c
 
@@ -19,6 +20,7 @@ libsnippetsdir = $(includedir)/snippets
 libsnippets_HEADERS = \
 	utils.h \
 	snippets-stdint.h \
+	linkedlist.h \
 	fnv.h \
 	rand.h
 
