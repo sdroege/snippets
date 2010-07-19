@@ -23,6 +23,8 @@
 
 #include <snippets/rand.h>
 
+#include <assert.h>
+
 #define N 624
 
 struct _SnippetsRand
@@ -88,20 +90,26 @@ snippets_rand_new (SnippetsRandMode mode, uint32_t seed)
 void
 snippets_rand_free (SnippetsRand * rand)
 {
+  assert (rand != NULL);
   free (rand);
 }
 
 uint32_t
 snippets_rand_uint32 (SnippetsRand * rand)
 {
+  assert (rand != NULL);
+
   return rand->genrand (rand);
 }
 
 uint32_t
 snippets_rand_uint32_range (SnippetsRand * rand, uint32_t min, uint32_t max)
 {
-  uint64_t a = rand->genrand (rand);
+  uint64_t a;
 
+  assert (rand != NULL);
+
+  a = rand->genrand (rand);
   a = (a * (max - min)) / 0xffffffff + min;
 
   return (uint32_t) a;
@@ -111,8 +119,11 @@ snippets_rand_uint32_range (SnippetsRand * rand, uint32_t min, uint32_t max)
 double
 snippets_rand_double (SnippetsRand * rand)
 {
-  double a = rand->genrand (rand) * DOUBLE_TRANSFORM;
+  double a;
 
+  assert (rand != NULL);
+
+  a = rand->genrand (rand) * DOUBLE_TRANSFORM;
   a = (a + rand->genrand (rand)) * DOUBLE_TRANSFORM;
 
   /* a >= 1.0 might happen due to rare rounding errors */
@@ -122,5 +133,7 @@ snippets_rand_double (SnippetsRand * rand)
 double
 snippets_rand_double_range (SnippetsRand * rand, double min, double max)
 {
+  assert (rand != NULL);
+
   return snippets_rand_double (rand) * (max - min) + min;
 }

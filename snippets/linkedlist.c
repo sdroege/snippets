@@ -23,6 +23,7 @@
 
 #include <snippets/linkedlist.h>
 
+#include <assert.h>
 #include <string.h>
 
 struct _SnippetsLinkedList
@@ -54,6 +55,8 @@ snippets_linked_list_node_new (SnippetsLinkedList * list, size_t data_size,
   SnippetsLinkedListNode *node;
 
   if (!list->pointer) {
+    assert (data != NULL);
+
     node =
         calloc (STRUCT_ALIGN (sizeof (SnippetsLinkedListNode) + data_size), 1);
     node->data =
@@ -87,7 +90,11 @@ SnippetsLinkedList *
 snippets_linked_list_new (size_t data_size, SnippetsCopyToFunction copy_func,
     SnippetsFreeFunction free_func)
 {
-  SnippetsLinkedList *list = calloc (sizeof (SnippetsLinkedList), 1);
+  SnippetsLinkedList *list;
+
+  assert (data_size != 0);
+
+  list = calloc (sizeof (SnippetsLinkedList), 1);
 
   list->data_size = data_size;
   list->copy_func = copy_func;
@@ -116,6 +123,8 @@ snippets_linked_list_free (SnippetsLinkedList * list)
 {
   SnippetsLinkedListNode *l, *m;
 
+  assert (list != NULL);
+
   l = list->head;
   while (l) {
     m = l;
@@ -128,8 +137,12 @@ snippets_linked_list_free (SnippetsLinkedList * list)
 SnippetsLinkedList *
 snippets_linked_list_copy (const SnippetsLinkedList * list)
 {
-  SnippetsLinkedList *copy = calloc (sizeof (SnippetsLinkedList), 1);
+  SnippetsLinkedList *copy;
   SnippetsLinkedListNode *l;
+
+  assert (list != NULL);
+
+  copy = calloc (sizeof (SnippetsLinkedList), 1);
 
   copy->data_size = list->data_size;
   copy->copy_func = list->copy_func;
@@ -145,10 +158,14 @@ snippets_linked_list_copy (const SnippetsLinkedList * list)
 SnippetsLinkedListNode *
 snippets_linked_list_append (SnippetsLinkedList * list, void *data)
 {
-  SnippetsLinkedListNode *node =
+  SnippetsLinkedListNode *node;
+  SnippetsLinkedListNode *prev;
+
+  assert (list != NULL);
+
+  node =
       snippets_linked_list_node_new (list, list->data_size, list->copy_func,
       data);
-  SnippetsLinkedListNode *prev;
 
   if (!list->head) {
     list->head = list->tail = node;
@@ -166,10 +183,14 @@ snippets_linked_list_append (SnippetsLinkedList * list, void *data)
 SnippetsLinkedListNode *
 snippets_linked_list_prepend (SnippetsLinkedList * list, void *data)
 {
-  SnippetsLinkedListNode *node =
+  SnippetsLinkedListNode *node;
+  SnippetsLinkedListNode *next;
+
+  assert (list != NULL);
+
+  node =
       snippets_linked_list_node_new (list, list->data_size, list->copy_func,
       data);
-  SnippetsLinkedListNode *next;
 
   if (!list->head) {
     list->head = list->tail = node;
@@ -191,8 +212,13 @@ snippets_linked_list_insert_after (SnippetsLinkedList * list,
   SnippetsLinkedListNode *node;
   SnippetsLinkedListNode *next;
 
+  assert (list != NULL);
+
   if (!prev)
     return snippets_linked_list_append (list, data);
+
+  assert (prev != NULL);
+  assert (prev->list == list);
 
   node =
       snippets_linked_list_node_new (list, list->data_size, list->copy_func,
@@ -215,8 +241,13 @@ snippets_linked_list_insert_before (SnippetsLinkedList * list,
   SnippetsLinkedListNode *node;
   SnippetsLinkedListNode *prev;
 
+  assert (list != NULL);
+
   if (!next)
     return snippets_linked_list_prepend (list, data);
+
+  assert (next != NULL);
+  assert (next->list == list);
 
   node =
       snippets_linked_list_node_new (list, list->data_size, list->copy_func,
@@ -237,6 +268,10 @@ snippets_linked_list_remove (SnippetsLinkedList * list,
     SnippetsLinkedListNode * node)
 {
   SnippetsLinkedListNode *prev, *next;
+
+  assert (list != NULL);
+  assert (node != NULL);
+  assert (node->list == list);
 
   if (node == list->head) {
     next = node->next;
@@ -264,36 +299,43 @@ snippets_linked_list_remove (SnippetsLinkedList * list,
 SnippetsLinkedListNode *
 snippets_linked_list_head (SnippetsLinkedList * list)
 {
+  assert (list != NULL);
   return list->head;
 }
 
 SnippetsLinkedListNode *
 snippets_linked_list_tail (SnippetsLinkedList * list)
 {
+  assert (list != NULL);
   return list->tail;
 }
 
 size_t
 snippets_linked_list_length (SnippetsLinkedList * list)
 {
+  assert (list != NULL);
   return list->length;
 }
 
 SnippetsLinkedListNode *
 snippets_linked_list_node_next (SnippetsLinkedListNode * node)
 {
+  assert (node != NULL);
   return node->next;
 }
 
 SnippetsLinkedListNode *
 snippets_linked_list_node_prev (SnippetsLinkedListNode * node)
 {
+  assert (node != NULL);
   return node->prev;
 }
 
 void *
 snippets_linked_list_node_get_ (SnippetsLinkedListNode * node)
 {
+  assert (node != NULL);
+
   if (node->list->pointer)
     return &node->data;
   else
