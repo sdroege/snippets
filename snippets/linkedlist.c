@@ -58,7 +58,7 @@ snippets_linked_list_node_new (SnippetsLinkedList * list, size_t data_size,
     assert (data != NULL);
 
     node =
-        calloc (STRUCT_ALIGN (sizeof (SnippetsLinkedListNode) + data_size), 1);
+        calloc (STRUCT_ALIGN (sizeof (SnippetsLinkedListNode)) + data_size, 1);
     node->data =
         ((uint8_t *) node) + STRUCT_ALIGN (sizeof (SnippetsLinkedListNode));
     if (copy_func)
