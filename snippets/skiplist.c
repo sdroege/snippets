@@ -256,7 +256,7 @@ snippets_skip_list_copy (const SnippetsSkipList * list)
 
 static int
 snippets_skip_list_find_internal (SnippetsSkipList * list, const void *data,
-    SnippetsSkipListNode * nodes[MAX_LEVELS + 1])
+    SnippetsSkipListNode * nodes[MAX_LEVELS])
 {
   SnippetsSkipListNode *l;
   int i, tmp, res = -1;
@@ -291,7 +291,7 @@ snippets_skip_list_find_internal (SnippetsSkipList * list, const void *data,
 SnippetsSkipListNode *
 snippets_skip_list_insert (SnippetsSkipList * list, void *data)
 {
-  SnippetsSkipListNode *nodes[MAX_LEVELS + 1] = { NULL, };
+  SnippetsSkipListNode *nodes[MAX_LEVELS] = { NULL, };
   int i, res, level;
   SnippetsSkipListNode *node;
 
@@ -331,7 +331,7 @@ snippets_skip_list_insert (SnippetsSkipList * list, void *data)
 void
 snippets_skip_list_remove (SnippetsSkipList * list, SnippetsSkipListNode * node)
 {
-  SnippetsSkipListNode *nodes[MAX_LEVELS + 1] = { NULL, };
+  SnippetsSkipListNode *nodes[MAX_LEVELS] = { NULL, };
   SnippetsSkipListNode *n;
   int i, j;
 
@@ -372,7 +372,7 @@ snippets_skip_list_remove (SnippetsSkipList * list, SnippetsSkipListNode * node)
 void
 snippets_skip_list_remove_value (SnippetsSkipList * list, const void *data)
 {
-  SnippetsSkipListNode *nodes[MAX_LEVELS + 1] = { NULL, };
+  SnippetsSkipListNode *nodes[MAX_LEVELS] = { NULL, };
   int i, res;
 
   assert (list != NULL);
@@ -402,7 +402,7 @@ snippets_skip_list_remove_value (SnippetsSkipList * list, const void *data)
 SnippetsSkipListNode *
 snippets_skip_list_find (SnippetsSkipList * list, const void *data, int exact)
 {
-  SnippetsSkipListNode *nodes[MAX_LEVELS + 1] = { NULL, };
+  SnippetsSkipListNode *nodes[MAX_LEVELS] = { NULL, };
   int res;
 
   assert (list != NULL);
