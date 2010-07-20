@@ -210,8 +210,7 @@ START_TEST (test_copy)
   snippets_skip_list_insert (list, (void *) "bcd");
   snippets_skip_list_insert (list, (void *) "cde");
   snippets_skip_list_insert (list, (void *) "aaa");
-  /* Will be free'd because it already exists */
-  snippets_skip_list_insert (list, (void *) strdup ("abc"));
+  snippets_skip_list_insert (list, (void *) "abc");
   snippets_skip_list_insert (list, (void *) "xyz");
   snippets_skip_list_insert (list, (void *) "jkl");
   snippets_skip_list_insert (list, (void *) "uvw");

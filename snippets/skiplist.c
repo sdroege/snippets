@@ -299,11 +299,8 @@ snippets_skip_list_insert (SnippetsSkipList * list, void *data)
   assert (data != NULL);
 
   res = snippets_skip_list_find_internal (list, data, nodes);
-  if (res == 0) {
-    if (list->free_func)
-      list->free_func (data);
+  if (res == 0)
     return nodes[0];
-  }
 
   level =
       snippets_skip_list_get_random_level (list->rand, list->max_level,
