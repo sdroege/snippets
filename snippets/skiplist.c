@@ -344,6 +344,9 @@ snippets_skip_list_remove (SnippetsSkipList * list, SnippetsSkipListNode * node)
   nodes[0] = node->prev;
   n = node->prev;
 
+  if (node == list->tail)
+    list->tail = n;
+
   i = 1;
   while (i <= node->level) {
     assert (n);
@@ -381,6 +384,9 @@ snippets_skip_list_remove_value (SnippetsSkipList * list, const void *data)
   if (res != 0)
     return;
   assert (nodes[0] != NULL);
+
+  if (nodes[0] == list->tail)
+    list->tail = nodes[0]->prev;
 
   nodes[0]->prev->next = nodes[0]->next;
   if (nodes[0]->next)
