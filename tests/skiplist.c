@@ -349,7 +349,7 @@ START_TEST (test_find_performance)
   calls = 0;
   for (i = 0; i < N; i++)
     snippets_skip_list_insert (list, &test_data[i]);
-  fail_unless (((double) calls) / ((double) N) <= 64);
+  fail_unless (((double) calls) / ((double) N) <= 48);
 
   data1 = NULL;
   for (node = snippets_skip_list_head (list); node;
@@ -370,7 +370,7 @@ START_TEST (test_find_performance)
     data1 = snippets_skip_list_node_get (node, TestData *);
     fail_unless (compare_data (*data1, &test_data[r], NULL) == 0);
   }
-  fail_unless (((double) calls) / ((double) N) <= 64);
+  fail_unless (((double) calls) / ((double) N) <= 48);
 
   snippets_skip_list_free (list);
   free (test_data);
