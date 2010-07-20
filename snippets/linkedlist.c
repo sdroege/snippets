@@ -297,6 +297,22 @@ snippets_linked_list_remove (SnippetsLinkedList * list,
 }
 
 SnippetsLinkedListNode *
+snippets_linked_list_find (SnippetsLinkedList *list, const void *data, SnippetsCompareFunction compare_func, void *user_data)
+{
+  SnippetsLinkedListNode *l;
+
+  assert (list != NULL);
+  assert (data != NULL);
+  assert (compare_func != NULL);
+
+  for (l = list->head; l; l = l->next) {
+    if (compare_func (l->data, data, user_data) == 0)
+      return l;
+  }
+  return NULL;
+}
+
+SnippetsLinkedListNode *
 snippets_linked_list_head (SnippetsLinkedList * list)
 {
   assert (list != NULL);

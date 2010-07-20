@@ -34,6 +34,12 @@ copy_string (void *dest, const void *src)
   *d = strdup (s);
 }
 
+static int
+compare_string (const void *a, const void *b, void *user_data)
+{
+  return strcmp (a, b);
+}
+
 static const char *string_a = "abc";
 static const char *string_b = "def";
 static const char *string_c = "ghi";
@@ -91,6 +97,13 @@ START_TEST (test_string_copy)
   fail_unless (str != NULL);
   fail_if (*str == string_d);
   fail_unless (strcmp (*str, string_d) == 0);
+
+  l = snippets_linked_list_find (list, string_a, compare_string, NULL);
+  fail_unless (l != NULL);
+  fail_unless (l != n3);
+
+  l = snippets_linked_list_find (list, "test", compare_string, NULL);
+  fail_unless (l == NULL);
 
   copy = snippets_linked_list_copy (list);
   fail_unless (copy != NULL);
@@ -199,6 +212,13 @@ START_TEST (test_string_nocopy)
   fail_unless (str != NULL);
   fail_unless (*str == string_d);
   fail_unless (strcmp (*str, string_d) == 0);
+
+  l = snippets_linked_list_find (list, string_a, compare_string, NULL);
+  fail_unless (l != NULL);
+  fail_unless (l != n3);
+
+  l = snippets_linked_list_find (list, "test", compare_string, NULL);
+  fail_unless (l == NULL);
 
   copy = snippets_linked_list_copy (list);
   fail_unless (copy != NULL);

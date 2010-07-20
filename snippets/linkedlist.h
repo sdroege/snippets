@@ -39,6 +39,8 @@ SnippetsLinkedListNode * snippets_linked_list_insert_after (SnippetsLinkedList *
 SnippetsLinkedListNode * snippets_linked_list_insert_before (SnippetsLinkedList *list, SnippetsLinkedListNode *next, void *data);
 void snippets_linked_list_remove (SnippetsLinkedList *list, SnippetsLinkedListNode *node);
 
+SnippetsLinkedListNode * snippets_linked_list_find (SnippetsLinkedList *list, const void *data, SnippetsCompareFunction compare_func, void *user_data);
+
 SnippetsLinkedListNode * snippets_linked_list_head (SnippetsLinkedList *list);
 SnippetsLinkedListNode * snippets_linked_list_tail (SnippetsLinkedList *list);
 size_t snippets_linked_list_length (SnippetsLinkedList *list);
