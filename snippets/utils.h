@@ -46,8 +46,10 @@
 
 SNIPPETS_BEGIN_DECLS
 
+typedef void * (SnippetsCopyFunction) (const void *o);
 typedef void (*SnippetsCopyToFunction) (void *dest, const void *src);
 typedef void (*SnippetsFreeFunction) (void *o);
+typedef int  (*SnippetsCompareFunction) (const void *a, const void *b, void *user_data);
 
 SNIPPETS_END_DECLS
 

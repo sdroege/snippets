@@ -41,8 +41,6 @@
    email: m-mat @ math.sci.hiroshima-u.ac.jp (remove space)
 */
 
-#include <stdio.h>
-
 /* Period parameters */
 #define M 397
 #define MATRIX_A 0x9908b0dfUL   /* constant vector a */

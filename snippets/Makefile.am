@@ -3,7 +3,8 @@ lib_LTLIBRARIES = libsnippets.la
 libsnippets_la_SOURCES = \
 	linkedlist.c \
 	fnv.c \
-	rand.c
+	rand.c \
+	skiplist.c
 
 libsnippets_la_CFLAGS = \
 	-I$(top_srcdir) \
@@ -22,5 +23,6 @@ libsnippets_HEADERS = \
 	snippets-stdint.h \
 	linkedlist.h \
 	fnv.h \
-	rand.h
+	rand.h \
+	skiplist.h
 

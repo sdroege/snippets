@@ -21,6 +21,8 @@ or any newer version.
     - O(1) append/prepend
     - Pointer storage or data storage with single allocation
     - Memory managment
-  + Skip list (TODO)
+  + Skip list
+    - Configurable maximum node level and level probability
+    - Iteratable in both directions
   + Bloom filter (TODO)
 
