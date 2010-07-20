@@ -6,8 +6,8 @@ else
 tests_dir =
 endif
 
-SUBDIRS = snippets $(tests_dir) coverage
-DIST_SUBDIRS = snippets tests coverage
+SUBDIRS = snippets $(tests_dir) benchmark coverage
+DIST_SUBDIRS = snippets tests benchmark coverage
 
 clean-local:
 	-find $(top_builddir) -name *.gcda | xargs rm

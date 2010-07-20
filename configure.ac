@@ -143,6 +143,7 @@ AC_CONFIG_FILES([
   Makefile
   snippets/Makefile
   tests/Makefile
+  benchmark/Makefile
   coverage/Makefile
 ])
 
