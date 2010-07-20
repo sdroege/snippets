@@ -348,11 +348,11 @@ snippets_skip_list_remove (SnippetsSkipList * list, SnippetsSkipListNode * node)
     list->tail = n;
 
   i = 1;
-  while (i <= node->level) {
+  while (i < node->level) {
     assert (n);
 
-    if (n->level >= i) {
-      for (j = i; j < n->level; j++)
+    if (n->level > i) {
+      for (j = i; j < n->level && j < node->level; j++)
         nodes[i++] = n;
     }
     n = n->prev;
