@@ -47,6 +47,7 @@ struct _SnippetsSkipList
   SnippetsFreeFunction free_func;
 
   void *user_data;
+  SnippetsCopyFunction user_data_copy;
   SnippetsFreeFunction user_data_free;
 };
 
@@ -129,7 +130,7 @@ SnippetsSkipList *
 snippets_skip_list_new (unsigned int max_level, double p, size_t data_size,
     SnippetsCopyToFunction copy_func, SnippetsFreeFunction free_func,
     SnippetsCompareFunction compare_func, void *user_data,
-    SnippetsFreeFunction user_data_free)
+    SnippetsCopyFunction user_data_copy, SnippetsFreeFunction user_data_free)
 {
   SnippetsSkipList *list;
 
@@ -149,6 +150,7 @@ snippets_skip_list_new (unsigned int max_level, double p, size_t data_size,
   list->pointer = FALSE;
 
   list->user_data = user_data;
+  list->user_data_copy = user_data_copy;
   list->user_data_free = user_data_free;
 
   list->rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
@@ -164,7 +166,7 @@ SnippetsSkipList *
 snippets_skip_list_new_pointer (unsigned int max_level, double p,
     SnippetsCopyToFunction copy_func, SnippetsFreeFunction free_func,
     SnippetsCompareFunction compare_func, void *user_data,
-    SnippetsFreeFunction user_data_free)
+    SnippetsCopyFunction user_data_copy, SnippetsFreeFunction user_data_free)
 {
   SnippetsSkipList *list = calloc (sizeof (SnippetsSkipList), 1);
 
@@ -181,6 +183,7 @@ snippets_skip_list_new_pointer (unsigned int max_level, double p,
   list->pointer = TRUE;
 
   list->user_data = user_data;
+  list->user_data_copy = user_data_copy;
   list->user_data_free = user_data_free;
 
   list->rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
@@ -214,15 +217,12 @@ snippets_skip_list_free (SnippetsSkipList * list)
 }
 
 SnippetsSkipList *
-snippets_skip_list_copy (const SnippetsSkipList * list,
-    SnippetsCopyFunction user_data_copy_func)
+snippets_skip_list_copy (const SnippetsSkipList * list)
 {
   SnippetsSkipList *copy;
   SnippetsSkipListNode *l;
 
   assert (list != NULL);
-  assert (list->user_data == NULL || list->user_data_free == NULL
-      || user_data_copy_func != NULL);
 
   copy = calloc (sizeof (SnippetsSkipList), 1);
 
@@ -234,8 +234,9 @@ snippets_skip_list_copy (const SnippetsSkipList * list,
   copy->compare_func = list->compare_func;
   copy->pointer = list->pointer;
 
-  if (list->user_data) {
-    copy->user_data = user_data_copy_func (list->user_data);
+  if (list->user_data && list->user_data_copy) {
+    copy->user_data = list->user_data_copy (list->user_data);
+    copy->user_data_copy = list->user_data_copy;
     copy->user_data_free = list->user_data_free;
   }
 

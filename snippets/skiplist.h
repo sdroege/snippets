@@ -27,11 +27,11 @@ SNIPPETS_BEGIN_DECLS
 typedef struct _SnippetsSkipList SnippetsSkipList;
 typedef struct _SnippetsSkipListNode SnippetsSkipListNode;
 
-SnippetsSkipList * snippets_skip_list_new (unsigned int max_level, double p, size_t data_size, SnippetsCopyToFunction copy_func, SnippetsFreeFunction free_func, SnippetsCompareFunction compare_func, void *user_data, SnippetsFreeFunction user_data_free);
-SnippetsSkipList * snippets_skip_list_new_pointer (unsigned int max_level, double p, SnippetsCopyToFunction copy_func, SnippetsFreeFunction free_func, SnippetsCompareFunction compare_func, void *user_data, SnippetsFreeFunction user_data_free);
+SnippetsSkipList * snippets_skip_list_new (unsigned int max_level, double p, size_t data_size, SnippetsCopyToFunction copy_func, SnippetsFreeFunction free_func, SnippetsCompareFunction compare_func, void *user_data, SnippetsCopyFunction user_data_copy, SnippetsFreeFunction user_data_free);
+SnippetsSkipList * snippets_skip_list_new_pointer (unsigned int max_level, double p, SnippetsCopyToFunction copy_func, SnippetsFreeFunction free_func, SnippetsCompareFunction compare_func, void *user_data, SnippetsCopyFunction user_data_copy, SnippetsFreeFunction user_data_free);
 void snippets_skip_list_free (SnippetsSkipList *list);
 
-SnippetsSkipList * snippets_skip_list_copy (const SnippetsSkipList *list, SnippetsCopyFunction user_data_copy_func);
+SnippetsSkipList * snippets_skip_list_copy (const SnippetsSkipList *list);
 
 SnippetsSkipListNode * snippets_skip_list_insert (SnippetsSkipList *list, void *data);
 void snippets_skip_list_remove (SnippetsSkipList *list, SnippetsSkipListNode *node);

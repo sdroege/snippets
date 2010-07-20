@@ -51,7 +51,7 @@ START_TEST (test_insert_remove_find)
 
   list =
       snippets_skip_list_new_pointer (10, 0.5, copy_string, free,
-      compare_string, NULL, NULL);
+      compare_string, NULL, NULL, NULL);
 
   snippets_skip_list_insert (list, (void *) "abc");
   snippets_skip_list_insert (list, (void *) "bcd");
@@ -204,7 +204,7 @@ START_TEST (test_copy)
 
   list =
       snippets_skip_list_new_pointer (10, 0.5, copy_string, free,
-      compare_string, NULL, NULL);
+      compare_string, NULL, NULL, NULL);
 
   snippets_skip_list_insert (list, (void *) "abc");
   snippets_skip_list_insert (list, (void *) "bcd");
@@ -217,7 +217,7 @@ START_TEST (test_copy)
   snippets_skip_list_insert (list, (void *) "uvw");
   snippets_skip_list_insert (list, (void *) "bcc");
 
-  copy = snippets_skip_list_copy (list, NULL);
+  copy = snippets_skip_list_copy (list);
 
   fail_unless (snippets_skip_list_length (list) == 8);
   fail_unless (snippets_skip_list_length (copy) == 8);
@@ -289,7 +289,7 @@ START_TEST (test_non_pointer)
 
   list =
       snippets_skip_list_new (10, 0.5, sizeof (TestData), NULL, NULL,
-      compare_data, NULL, NULL);
+      compare_data, NULL, NULL, NULL);
 
   test_data.val[0] = 1;
   snippets_skip_list_insert (list, &test_data);
@@ -344,7 +344,7 @@ START_TEST (test_find_performance)
 
   list =
       snippets_skip_list_new_pointer (10, 0.5, NULL, NULL, compare_data, &calls,
-      NULL);
+      NULL, NULL);
 
   calls = 0;
   for (i = 0; i < N; i++)
@@ -386,7 +386,7 @@ skiplist_suite (void)
 
   /* Core test case */
   TCase *tc_general = tcase_create ("general");
-  tcase_set_timeout(tc_general, 60);
+  tcase_set_timeout (tc_general, 60);
   tcase_add_test (tc_general, test_insert_remove_find);
   tcase_add_test (tc_general, test_copy);
   tcase_add_test (tc_general, test_non_pointer);
