@@ -52,7 +52,7 @@ run (fnv_func func, int runs)
 #define RUN(func, runs) do { \
   uint64_t _duration; \
   _duration = run (func, runs); \
-  printf (#func ":\t%04lu.%06lus for " #runs " runs\n", _duration / 1000000, _duration % 1000000); \
+  printf (#func ":\t%04lu.%06lus for " #runs " runs (%lf kb/s)\n", _duration / 1000000, _duration % 1000000, (((double)runs) * sizeof (test_data) * 1000.0) / ((double)_duration)); \
 } while (0);
 
 int
