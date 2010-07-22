@@ -4,6 +4,7 @@
 *.la
 *.lo
 *.swp
+*~
 Makefile.in
 Makefile
 ChangeLog
@@ -34,4 +35,6 @@ m4/lt~obsolete.m4
 coverage/*.coverage
 coverage/report
 tests/test-*
-src/snippets-stdint.h
+snippets/snippets-stdint.h
+benchmark/fnv
+benchmark/rand
