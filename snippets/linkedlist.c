@@ -297,7 +297,8 @@ snippets_linked_list_remove (SnippetsLinkedList * list,
 }
 
 SnippetsLinkedListNode *
-snippets_linked_list_find (SnippetsLinkedList *list, const void *data, SnippetsCompareFunction compare_func, void *user_data)
+snippets_linked_list_find (SnippetsLinkedList * list, const void *data,
+    SnippetsCompareFunction compare_func, void *user_data)
 {
   SnippetsLinkedListNode *l;
 

@@ -37,7 +37,7 @@ struct _SnippetsSkipList
   int pointer;
 
   unsigned int max_level;
-  uint32_t p; /* p * 0xffffffff */
+  uint32_t p;                   /* p * 0xffffffff */
 
   SnippetsRand *rand;
 
