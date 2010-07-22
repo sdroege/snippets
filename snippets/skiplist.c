@@ -37,7 +37,7 @@ struct _SnippetsSkipList
   int pointer;
 
   unsigned int max_level;
-  double p;
+  uint32_t p; /* p * 0xffffffff */
 
   SnippetsRand *rand;
 
@@ -66,12 +66,12 @@ struct _SnippetsSkipListNode
 
 static unsigned int
 snippets_skip_list_get_random_level (SnippetsRand * rand,
-    unsigned int max_level, double p)
+    unsigned int max_level, uint32_t p)
 {
   unsigned int level = 1;
-  double r;
+  uint32_t r;
 
-  while ((r = snippets_rand_double (rand)) < p && level < max_level)
+  while ((r = snippets_rand_uint32 (rand)) <= p && level < max_level)
     level++;
 
   return level;
@@ -142,7 +142,7 @@ snippets_skip_list_new (unsigned int max_level, double p, size_t data_size,
   list = calloc (sizeof (SnippetsSkipList), 1);
 
   list->max_level = max_level;
-  list->p = p;
+  list->p = 0xffffffff * p;
   list->data_size = data_size;
   list->copy_func = copy_func;
   list->free_func = free_func;
@@ -175,7 +175,7 @@ snippets_skip_list_new_pointer (unsigned int max_level, double p,
   assert (compare_func != NULL);
 
   list->max_level = max_level;
-  list->p = p;
+  list->p = 0xffffffff * p;
   list->data_size = 0;
   list->copy_func = copy_func;
   list->free_func = free_func;
