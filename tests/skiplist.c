@@ -331,7 +331,7 @@ START_TEST (test_find_performance)
   uint64_t calls;
   TestData **data1, **data2;
 
-  rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
+  rand = snippets_rand_new (time (0));
 
   test_data = malloc (N * sizeof (TestData));
   for (i = 0; i < N; i++) {

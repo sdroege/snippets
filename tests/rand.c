@@ -24,53 +24,14 @@
 #include <check.h>
 #include <snippets/rand.h>
 
-START_TEST (test_rand_lcg_uint32)
-{
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR,
-      0xdeadbeef);
-  uint32_t vals[2048];
-  unsigned int i;
-
-  for (i = 0; i < 2048; i++)
-    vals[i] = snippets_rand_uint32 (rand);
-
-  /* Not testing much here... */
-
-  snippets_rand_free (rand);
-}
-
-END_TEST;
-
 START_TEST (test_rand_mt_uint32)
 {
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, 0xdeadbeef);
+  SnippetsRand *rand = snippets_rand_new (0xdeadbeef);
   uint32_t vals[2048];
   unsigned int i;
 
   for (i = 0; i < 2048; i++)
     vals[i] = snippets_rand_uint32 (rand);
-
-  /* Not testing much here... */
-
-  snippets_rand_free (rand);
-}
-
-END_TEST;
-
-START_TEST (test_rand_lcg_double)
-{
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR,
-      0xdeadbeef);
-  double vals[2048];
-  unsigned int i;
-
-  for (i = 0; i < 2048; i++) {
-    vals[i] = snippets_rand_double (rand);
-    fail_unless (vals[i] < 1.0 && vals[i] >= 0.0);
-  }
 
   /* Not testing much here... */
 
@@ -81,34 +42,13 @@ END_TEST;
 
 START_TEST (test_rand_mt_double)
 {
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, 0xdeadbeef);
+  SnippetsRand *rand = snippets_rand_new (0xdeadbeef);
   double vals[2048];
   unsigned int i;
 
   for (i = 0; i < 2048; i++) {
     vals[i] = snippets_rand_double (rand);
     fail_unless (vals[i] < 1.0 && vals[i] >= 0.0);
-  }
-
-  /* Not testing much here... */
-
-  snippets_rand_free (rand);
-}
-
-END_TEST;
-
-START_TEST (test_rand_lcg_uint32_range_20_100)
-{
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR,
-      0xdeadbeef);
-  uint32_t vals[2048];
-  unsigned int i;
-
-  for (i = 0; i < 2048; i++) {
-    vals[i] = snippets_rand_uint32_range (rand, 20, 100);
-    fail_unless (vals[i] >= 20 && vals[i] < 100);
   }
 
   /* Not testing much here... */
@@ -120,33 +60,12 @@ END_TEST;
 
 START_TEST (test_rand_mt_uint32_range_20_100)
 {
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, 0xdeadbeef);
+  SnippetsRand *rand = snippets_rand_new (0xdeadbeef);
   uint32_t vals[2048];
   unsigned int i;
 
   for (i = 0; i < 2048; i++) {
     vals[i] = snippets_rand_uint32_range (rand, 20, 100);
-    fail_unless (vals[i] >= 20 && vals[i] < 100);
-  }
-
-  /* Not testing much here... */
-
-  snippets_rand_free (rand);
-}
-
-END_TEST;
-
-START_TEST (test_rand_lcg_double_range_20_100)
-{
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR,
-      0xdeadbeef);
-  double vals[2048];
-  unsigned int i;
-
-  for (i = 0; i < 2048; i++) {
-    vals[i] = snippets_rand_double_range (rand, 20, 100);
     fail_unless (vals[i] >= 20 && vals[i] < 100);
   }
 
@@ -159,8 +78,7 @@ END_TEST;
 
 START_TEST (test_rand_mt_double_range_20_100)
 {
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, 0xdeadbeef);
+  SnippetsRand *rand = snippets_rand_new (0xdeadbeef);
   double vals[2048];
   unsigned int i;
 
@@ -183,13 +101,9 @@ rand_suite (void)
 
   /* Core test case */
   TCase *tc_general = tcase_create ("general");
-  tcase_add_test (tc_general, test_rand_lcg_uint32);
   tcase_add_test (tc_general, test_rand_mt_uint32);
-  tcase_add_test (tc_general, test_rand_lcg_double);
   tcase_add_test (tc_general, test_rand_mt_double);
-  tcase_add_test (tc_general, test_rand_lcg_uint32_range_20_100);
   tcase_add_test (tc_general, test_rand_mt_uint32_range_20_100);
-  tcase_add_test (tc_general, test_rand_lcg_double_range_20_100);
   tcase_add_test (tc_general, test_rand_mt_double_range_20_100);
   suite_add_tcase (s, tc_general);
 

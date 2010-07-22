@@ -29,60 +29,18 @@
 
 struct _SnippetsRand
 {
-  SnippetsRandMode mode;
   uint32_t mt[N];
   unsigned int mti;
-
-    uint32_t (*genrand) (SnippetsRand * rand);
 };
 
 #include "mt19937.c"
 
-static void
-lcg_init (SnippetsRand * rand, uint32_t seed)
-{
-  rand->mt[N - 1] = seed;
-  rand->mti = N;
-}
-
-static uint32_t
-lcg_genrand_uint32 (SnippetsRand * rand)
-{
-  uint32_t *mt = rand->mt;
-  unsigned int mti = rand->mti;
-  uint32_t y;
-
-  if (mti >= N) {
-    mt[0] = mt[N - 1] * 1103515245 + 12345;
-    for (mti = 1; mti < N; mti++)
-      mt[mti] = mt[mti - 1] * 1103515245 + 12345;
-    mti = 0;
-  }
-
-  y = mt[mti++];
-  rand->mti = mti;
-
-  return y;
-}
-
 SnippetsRand *
-snippets_rand_new (SnippetsRandMode mode, uint32_t seed)
+snippets_rand_new (uint32_t seed)
 {
   SnippetsRand *rand = calloc (sizeof (SnippetsRand), 1);
 
-  rand->mode = mode;
-
-  switch (mode) {
-    default:
-    case SNIPPETS_RAND_MODE_MT19937:
-      mt19937_init (rand, seed);
-      rand->genrand = mt19937_genrand_uint32;
-      break;
-    case SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR:
-      lcg_init (rand, seed);
-      rand->genrand = lcg_genrand_uint32;
-      break;
-  }
+  mt19937_init (rand, seed);
 
   return rand;
 }
@@ -99,7 +57,7 @@ snippets_rand_uint32 (SnippetsRand * rand)
 {
   assert (rand != NULL);
 
-  return rand->genrand (rand);
+  return mt19937_genrand_uint32 (rand);
 }
 
 uint32_t
@@ -109,7 +67,7 @@ snippets_rand_uint32_range (SnippetsRand * rand, uint32_t min, uint32_t max)
 
   assert (rand != NULL);
 
-  a = rand->genrand (rand);
+  a = mt19937_genrand_uint32 (rand);
   a = (a * (max - min)) / 0xffffffff + min;
 
   return (uint32_t) a;
@@ -123,8 +81,8 @@ snippets_rand_double (SnippetsRand * rand)
 
   assert (rand != NULL);
 
-  a = rand->genrand (rand) * DOUBLE_TRANSFORM;
-  a = (a + rand->genrand (rand)) * DOUBLE_TRANSFORM;
+  a = mt19937_genrand_uint32 (rand) * DOUBLE_TRANSFORM;
+  a = (a + mt19937_genrand_uint32 (rand)) * DOUBLE_TRANSFORM;
 
   /* a >= 1.0 might happen due to rare rounding errors */
   return (a >= 1.0) ? snippets_rand_double (rand) : a;

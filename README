@@ -12,9 +12,8 @@ or any newer version.
   + Fowler–Noll–Vo hash function in 32, 64, 128, 256, 512 and
     1024 bit variants.
   + Pseudo random number generator for uniformly distributed
-    32 bit integers and doubles in arbitrary ranges.
-    - MT19937 mersenne prime twister
-    - Linear congruential generator
+    32 bit integers and doubles in arbitrary ranges. Uses
+    the MT19937 mersenne prime twister.
 
 * Data structures:
   + (Double) Linked list

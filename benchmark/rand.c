@@ -47,7 +47,7 @@
 static void
 mt19937_uint32 (void)
 {
-  SnippetsRand *rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
+  SnippetsRand *rand = snippets_rand_new (time (0));
   unsigned int i;
 
   for (i = 0; i < NRUNS; i++)
@@ -59,7 +59,7 @@ mt19937_uint32 (void)
 static void
 mt19937_uint32_range (void)
 {
-  SnippetsRand *rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
+  SnippetsRand *rand = snippets_rand_new (time (0));
   unsigned int i;
 
   for (i = 0; i < NRUNS; i++)
@@ -71,7 +71,7 @@ mt19937_uint32_range (void)
 static void
 mt19937_double (void)
 {
-  SnippetsRand *rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
+  SnippetsRand *rand = snippets_rand_new (time (0));
   unsigned int i;
 
   for (i = 0; i < NRUNS; i++)
@@ -83,63 +83,7 @@ mt19937_double (void)
 static void
 mt19937_double_range (void)
 {
-  SnippetsRand *rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
-  unsigned int i;
-
-  for (i = 0; i < NRUNS; i++)
-    snippets_rand_double_range (rand, 100, 1000);
-
-  snippets_rand_free (rand);
-}
-
-static void
-lcg_uint32 (void)
-{
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR,
-      time (0));
-  unsigned int i;
-
-  for (i = 0; i < NRUNS; i++)
-    snippets_rand_uint32 (rand);
-
-  snippets_rand_free (rand);
-}
-
-static void
-lcg_uint32_range (void)
-{
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR,
-      time (0));
-  unsigned int i;
-
-  for (i = 0; i < NRUNS; i++)
-    snippets_rand_uint32_range (rand, 100, 1000);
-
-  snippets_rand_free (rand);
-}
-
-static void
-lcg_double (void)
-{
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR,
-      time (0));
-  unsigned int i;
-
-  for (i = 0; i < NRUNS; i++)
-    snippets_rand_double (rand);
-
-  snippets_rand_free (rand);
-}
-
-static void
-lcg_double_range (void)
-{
-  SnippetsRand *rand =
-      snippets_rand_new (SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR,
-      time (0));
+  SnippetsRand *rand = snippets_rand_new (time (0));
   unsigned int i;
 
   for (i = 0; i < NRUNS; i++)
@@ -155,9 +99,5 @@ main (int argc, char **argv)
   RUN (mt19937_uint32_range, "MT19937 uint32 range ");
   RUN (mt19937_double, "MT19937 double       ");
   RUN (mt19937_double_range, "MT19937 double range ");
-  RUN (lcg_uint32, "LCG uint32           ");
-  RUN (lcg_uint32_range, "LCG uint32 range     ");
-  RUN (lcg_double, "LCG double           ");
-  RUN (lcg_double_range, "LCG double range     ");
   return 0;
 }

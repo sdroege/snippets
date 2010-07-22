@@ -153,7 +153,7 @@ snippets_skip_list_new (unsigned int max_level, double p, size_t data_size,
   list->user_data_copy = user_data_copy;
   list->user_data_free = user_data_free;
 
-  list->rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
+  list->rand = snippets_rand_new (time (0));
 
   list->head =
       snippets_skip_list_node_new (list, list->data_size, NULL, NULL,
@@ -186,7 +186,7 @@ snippets_skip_list_new_pointer (unsigned int max_level, double p,
   list->user_data_copy = user_data_copy;
   list->user_data_free = user_data_free;
 
-  list->rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
+  list->rand = snippets_rand_new (time (0));
 
   list->head =
       snippets_skip_list_node_new (list, list->data_size, NULL, NULL,
@@ -240,7 +240,7 @@ snippets_skip_list_copy (const SnippetsSkipList * list)
     copy->user_data_free = list->user_data_free;
   }
 
-  copy->rand = snippets_rand_new (SNIPPETS_RAND_MODE_MT19937, time (0));
+  copy->rand = snippets_rand_new (time (0));
 
   /* TODO: Could build perfect skip list here by
    * choosing the optimal levels

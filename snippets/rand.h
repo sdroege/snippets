@@ -25,15 +25,8 @@
 SNIPPETS_BEGIN_DECLS
 
 typedef struct _SnippetsRand SnippetsRand;
-typedef enum _SnippetsRandMode SnippetsRandMode;
 
-enum  _SnippetsRandMode
-{
-  SNIPPETS_RAND_MODE_MT19937,
-  SNIPPETS_RAND_MODE_LINEAR_CONGRUENTIAL_GENERATOR
-};
-
-SnippetsRand * snippets_rand_new          (SnippetsRandMode mode, uint32_t seed);
+SnippetsRand * snippets_rand_new          (uint32_t seed);
 void           snippets_rand_free         (SnippetsRand *rand);
 
 uint32_t       snippets_rand_uint32       (SnippetsRand *rand);
