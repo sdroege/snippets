@@ -23,5 +23,8 @@ or any newer version.
   + Skip list
     - Configurable maximum node level and level probability
     - Iteratable in both directions
-  + Bloom filter (TODO)
+  + Bloom filter
+    - Uses enhanced double hashing
+    - Arbitrary number of hash functions
+    - Arbitrary filter size
 

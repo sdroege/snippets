@@ -2,7 +2,8 @@ TESTS = \
 	test-fnv \
 	test-rand \
 	test-linkedlist \
-	test-skiplist
+	test-skiplist \
+	test-bloomfilter
 
 noinst_PROGRAMS = $(TESTS)
 
@@ -29,6 +30,10 @@ test_linkedlist_LDADD = $(TESTS_LDADD)
 test_skiplist_SOURCES = skiplist.c
 test_skiplist_CFLAGS = $(TESTS_CFLAGS)
 test_skiplist_LDADD = $(TESTS_LDADD)
+
+test_bloomfilter_SOURCES = bloomfilter.c
+test_bloomfilter_CFLAGS = $(TESTS_CFLAGS)
+test_bloomfilter_LDADD = $(TESTS_LDADD) $(LIBM)
 
 include $(top_srcdir)/check.mk
 

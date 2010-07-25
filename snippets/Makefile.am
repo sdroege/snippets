@@ -4,7 +4,8 @@ libsnippets_la_SOURCES = \
 	linkedlist.c \
 	fnv.c \
 	rand.c \
-	skiplist.c
+	skiplist.c \
+	bloomfilter.c
 
 libsnippets_la_CFLAGS = \
 	-I$(top_srcdir) \
@@ -24,5 +25,6 @@ libsnippets_HEADERS = \
 	linkedlist.h \
 	fnv.h \
 	rand.h \
-	skiplist.h
+	skiplist.h \
+	bloomfilter.h
 
