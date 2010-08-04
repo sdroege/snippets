@@ -29,6 +29,12 @@ void          snippets_bloom_filter_insert    (SnippetsBloomFilter *filter, cons
 int           snippets_bloom_filter_contains  (SnippetsBloomFilter *filter, const uint8_t *data, size_t length);
 void          snippets_bloom_filter_free      (SnippetsBloomFilter *filter);
 
+unsigned int snippets_bloom_filter_n_hash_functions (SnippetsBloomFilter *filter);
+uint32_t snippets_bloom_filter_size (SnippetsBloomFilter *filter);
+
+uint64_t snippets_bloom_filter_n_elements (SnippetsBloomFilter *filter);
+double snippets_bloom_filter_false_positive_rate (SnippetsBloomFilter *filter);
+
 unsigned int  snippets_bloom_filter_optimal_n_hash_functions (uint32_t filter_size, uint64_t n_elements);
 
 #endif /* __SNIPPETS_BLOOM_FILTER_H__ */

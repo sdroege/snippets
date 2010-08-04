@@ -33,7 +33,7 @@ test_skiplist_LDADD = $(TESTS_LDADD)
 
 test_bloomfilter_SOURCES = bloomfilter.c
 test_bloomfilter_CFLAGS = $(TESTS_CFLAGS)
-test_bloomfilter_LDADD = $(TESTS_LDADD) $(LIBM)
+test_bloomfilter_LDADD = $(TESTS_LDADD)
 
 include $(top_srcdir)/check.mk
 

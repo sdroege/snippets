@@ -52,6 +52,7 @@ struct _SnippetsBloomFilter
 {
   uint8_t *filter;
   uint32_t size;
+  uint64_t n_elements;
   unsigned int n_hash_functions;
   unsigned int hash_size;
 
@@ -201,6 +202,7 @@ snippets_bloom_filter_insert (SnippetsBloomFilter * filter,
   assert (data != NULL);
 
   snippets_bloom_filter_hash (filter, data, length, TRUE);
+  filter->n_elements++;
 }
 
 int
@@ -233,4 +235,45 @@ snippets_bloom_filter_optimal_n_hash_functions (uint32_t filter_size,
   n = n_elements;
 
   return (unsigned int) (pow (3.8, 1.0 / (m / n + 4.2)) * (m / n) * M_LN2);
+}
+
+unsigned int
+snippets_bloom_filter_n_hash_functions (SnippetsBloomFilter * filter)
+{
+  assert (filter != NULL);
+
+  return filter->n_hash_functions;
+}
+
+uint32_t
+snippets_bloom_filter_size (SnippetsBloomFilter * filter)
+{
+  assert (filter != NULL);
+
+  return filter->size;
+}
+
+uint64_t
+snippets_bloom_filter_n_elements (SnippetsBloomFilter * filter)
+{
+  assert (filter != NULL);
+
+  return filter->n_elements;
+}
+
+double
+snippets_bloom_filter_false_positive_rate (SnippetsBloomFilter * filter)
+{
+  double n_hash_functions;
+  double n_elements;
+  double filter_size;
+
+  assert (filter != NULL);
+
+  n_hash_functions = filter->n_hash_functions;
+  n_elements = filter->n_elements;
+  filter_size = filter->size;
+
+  return pow (1.0 - pow (M_E, (-n_hash_functions * n_elements) / filter_size),
+      n_hash_functions);
 }

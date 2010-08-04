@@ -23,8 +23,6 @@
 
 #include <check.h>
 
-#include <math.h>
-
 #include <snippets/bloomfilter.h>
 #include <snippets/rand.h>
 #include <snippets/skiplist.h>
@@ -65,6 +63,11 @@ START_TEST (test_general)
   int i, j;
   SnippetsSkipListNode *n;
 
+  fail_unless (snippets_bloom_filter_n_hash_functions (filter) == 16);
+  fail_unless (snippets_bloom_filter_size (filter) == 100 * 1000 * 8);
+  fail_unless (snippets_bloom_filter_n_elements (filter) == 0);
+  fail_unless (snippets_bloom_filter_false_positive_rate (filter) == 0);
+
   for (i = 0; i < N; i++) {
     for (j = 0; j < 16; j++)
       data.data[j] = snippets_rand_uint32 (rand);
@@ -84,19 +87,15 @@ START_TEST (test_general)
             (uint8_t *) data2->data, sizeof (TestData)));
   }
 
+  fail_unless (snippets_bloom_filter_n_elements (filter) ==
+      snippets_skip_list_length (list));
+
   snippets_skip_list_free (list);
   snippets_rand_free (rand);
   snippets_bloom_filter_free (filter);
 }
 
 END_TEST;
-
-static double
-get_fp_rate (double filter_size, double n_hash_functions, double elements)
-{
-  return pow (1.0 - pow (M_E, (-n_hash_functions * elements) / filter_size),
-      n_hash_functions);
-}
 
 #define CREATE_TEST(filter_size, n_hash_functions, hash_size, elements) \
 START_TEST (test_##filter_size##_##n_hash_functions##_##hash_size##_##elements) \
@@ -110,7 +109,7 @@ START_TEST (test_##filter_size##_##n_hash_functions##_##hash_size##_##elements) 
   int i, j; \
   SnippetsSkipListNode *n; \
   double false_positives = 0; \
-  double max_fp_rate = get_fp_rate (filter_size, n_hash_functions, elements); \
+  double max_fp_rate; \
   \
   for (i = 0; i < N; i++) { \
     for (j = 0; j < 16; j++) \
@@ -123,6 +122,9 @@ START_TEST (test_##filter_size##_##n_hash_functions##_##hash_size##_##elements) 
     data2 = snippets_skip_list_node_get (n, TestData); \
     snippets_bloom_filter_insert (filter, (uint8_t *) data2->data, sizeof (TestData)); \
   } \
+  \
+  fail_unless (snippets_bloom_filter_n_elements (filter) == snippets_skip_list_length (list)); \
+  max_fp_rate = snippets_bloom_filter_false_positive_rate (filter); \
   \
   for (n = snippets_skip_list_head (list); n; n = snippets_skip_list_node_next (n)) { \
     data2 = snippets_skip_list_node_get (n, TestData); \
@@ -162,10 +164,15 @@ CREATE_TEST (100000, 70, 1024, 1000);
 
 START_TEST (test_optimal_n_hash_functions)
 {
-  fail_unless (snippets_bloom_filter_optimal_n_hash_functions (15000, 2000) == 5);
-  fail_unless (snippets_bloom_filter_optimal_n_hash_functions (150000, 10000) == 11);
-  fail_unless (snippets_bloom_filter_optimal_n_hash_functions (100000, 1000) == 70);
-} END_TEST;
+  fail_unless (snippets_bloom_filter_optimal_n_hash_functions (15000,
+          2000) == 5);
+  fail_unless (snippets_bloom_filter_optimal_n_hash_functions (150000,
+          10000) == 11);
+  fail_unless (snippets_bloom_filter_optimal_n_hash_functions (100000,
+          1000) == 70);
+}
+
+END_TEST;
 
 static Suite *
 bloomfilter_suite (void)
