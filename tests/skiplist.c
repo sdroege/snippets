@@ -53,6 +53,9 @@ START_TEST (test_insert_remove_find)
       snippets_skip_list_new_pointer (10, 0.5, copy_string, free,
       compare_string, NULL, NULL, NULL);
 
+  fail_unless (snippets_skip_list_max_level (list) == 10);
+  fail_unless (abs (snippets_skip_list_probability (list) - 0.5) < 1e-10);
+
   snippets_skip_list_insert (list, (void *) "abc");
   snippets_skip_list_insert (list, (void *) "bcd");
   snippets_skip_list_insert (list, (void *) "cde");

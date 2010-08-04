@@ -460,3 +460,19 @@ snippets_skip_list_node_get_ (SnippetsSkipListNode * node)
   else
     return node->data;
 }
+
+unsigned int
+snippets_skip_list_max_level (SnippetsSkipList * list)
+{
+  assert (list != NULL);
+
+  return list->max_level;
+}
+
+double
+snippets_skip_list_probability (SnippetsSkipList * list)
+{
+  assert (list != NULL);
+
+  return ((double) list->p) / ((double) 0xffffffff);
+}

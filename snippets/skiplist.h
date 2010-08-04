@@ -40,7 +40,10 @@ SnippetsSkipListNode * snippets_skip_list_find (SnippetsSkipList *list, const vo
 
 SnippetsSkipListNode * snippets_skip_list_head (SnippetsSkipList *list);
 SnippetsSkipListNode * snippets_skip_list_tail (SnippetsSkipList *list);
+
 size_t snippets_skip_list_length (SnippetsSkipList *list);
+unsigned int snippets_skip_list_max_level (SnippetsSkipList *list);
+double snippets_skip_list_probability (SnippetsSkipList *list);
 
 SnippetsSkipListNode * snippets_skip_list_node_next (SnippetsSkipListNode *node);
 SnippetsSkipListNode * snippets_skip_list_node_prev (SnippetsSkipListNode *node);
