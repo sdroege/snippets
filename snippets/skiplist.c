@@ -28,6 +28,8 @@
 #include <string.h>
 #include <time.h>
 
+#include <math.h>
+
 #define MAX_LEVELS 32
 
 struct _SnippetsSkipList
@@ -338,6 +340,18 @@ snippets_skip_list_remove (SnippetsSkipList * list, SnippetsSkipListNode * node)
   assert (list != NULL);
   assert (node != NULL);
   assert (node->list == list);
+
+  /* Expected distance to the previous node of level at least node->level */
+  i = pow (1.0 / snippets_skip_list_probability (list), node->level - 1);
+  /* Expected worst case search path length from head to this node */
+  j = log (list->length) / log (1.0 / snippets_skip_list_probability (list)) +
+      1.0 / (1.0 - snippets_skip_list_probability (list));
+  /* If a search and remove is probably faster than stepping back
+   * do this instead */
+  if (j < i) {
+    snippets_skip_list_remove_value (list, node->data);
+    return;
+  }
 
   nodes[0] = node->prev;
   n = node->prev;
