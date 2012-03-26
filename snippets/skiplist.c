@@ -91,7 +91,7 @@ snippets_skip_list_node_new (SnippetsSkipList * list, size_t data_size,
         STRUCT_ALIGN ((level - 1) * sizeof (SnippetsSkipListNode *)) +
         data_size, 1);
     node->skip_links =
-        (SnippetsSkipListNode **) (((uint8_t *) node) +
+        (SnippetsSkipListNode **) (void *) (((uint8_t *) node) +
         STRUCT_ALIGN (sizeof (SnippetsSkipListNode)));
     node->data =
         ((uint8_t *) node) + STRUCT_ALIGN (sizeof (SnippetsSkipListNode)) +
@@ -106,7 +106,7 @@ snippets_skip_list_node_new (SnippetsSkipList * list, size_t data_size,
         calloc (STRUCT_ALIGN (sizeof (SnippetsSkipListNode)) + (level -
             1) * sizeof (SnippetsSkipListNode *), 1);
     node->skip_links =
-        (SnippetsSkipListNode **) (((uint8_t *) node) +
+        (SnippetsSkipListNode **) (void *) (((uint8_t *) node) +
         STRUCT_ALIGN (sizeof (SnippetsSkipListNode)));
     if (copy_func)
       copy_func (&node->data, data);
