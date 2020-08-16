@@ -27,11 +27,10 @@
 START_TEST (test_rand_mt_uint32)
 {
   SnippetsRand *rand = snippets_rand_new (0xdeadbeef);
-  uint32_t vals[2048];
   unsigned int i;
 
   for (i = 0; i < 2048; i++)
-    vals[i] = snippets_rand_uint32 (rand);
+    snippets_rand_uint32 (rand);
 
   /* Not testing much here... */
 
