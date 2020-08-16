@@ -104,7 +104,7 @@ START_TEST (test_##filter_size##_##n_hash_functions##_##hash_size##_##elements) 
   SnippetsRand *rand = snippets_rand_new (0xdeadbeef); \
   SnippetsSkipList *list = snippets_skip_list_new (8, 0.25, sizeof (TestData), NULL, NULL, compare_data, NULL, NULL, NULL); \
   const int N = elements; \
-  const int N2 = 10000; \
+  const int N2 = 500000; \
   TestData data, *data2; \
   int i, j; \
   SnippetsSkipListNode *n; \

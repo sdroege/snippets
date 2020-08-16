@@ -163,7 +163,7 @@ snippets_bloom_filter_hash (SnippetsBloomFilter * filter, const uint8_t * data,
 
     for (j = 0; j < functions_per_value - 1; j++) {
       x = (x + y) % size;
-      y = (y + i) % size;
+      y = (y + j) % size;
 
       if (set)
         SET_BIT (filter->filter, x);
@@ -187,7 +187,7 @@ snippets_bloom_filter_hash (SnippetsBloomFilter * filter, const uint8_t * data,
 
     for (j = 0; j < last_functions - 1; j++) {
       x = (x + y) % size;
-      y = (y + i) % size;
+      y = (y + j) % size;
 
       if (set)
         SET_BIT (filter->filter, x);
