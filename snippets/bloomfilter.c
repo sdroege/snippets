@@ -117,6 +117,11 @@ snippets_bloom_filter_hash (SnippetsBloomFilter * filter, const uint8_t * data,
 
   size = filter->size;
 
+  /* The code below is hashing the input data, splitting the hash into 32 bit
+   * integers and taking pairs of those for implementing the enhanced double
+   * hashing. This means we can handle up to hash_size/32/2 has functions
+   * directly without double hashing, and otherwise have to use double hashing
+   * for remaining ones based on the 32 bit pairs we got */
   n_hash_functions = filter->n_hash_functions;
   hash_values = filter->hash_size / 32;
 
@@ -137,9 +142,9 @@ snippets_bloom_filter_hash (SnippetsBloomFilter * filter, const uint8_t * data,
 
   hash_index = 0;
 
-  /* If there are less hash functions than hash value pairs
+  /* If there are fewer hash functions than hash value pairs
    * or the number of hash functions is an integer multiple
-   * of the number of hsah value pairs: Handle all hash
+   * of the number of hash value pairs: Handle all hash
    * functions in this loop.
    *
    * Otherwise handle all hash functions in this loop
